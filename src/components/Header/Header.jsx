@@ -1,19 +1,24 @@
 import React from 'react';
 import styles from './Header.styl';
-import Logo from '../Logo/Logo';
-import Column from '../Column/Column';
-import HeaderContent from '../HeaderContent/HeaderContent';
+import HeaderPrimaryContent from '../HeaderPrimaryContent/HeaderPrimaryContent';
+import PageTitle from '../PageTitle/PageTitle';
+import HeaderTop from '../HeaderTop/HeaderTop';
+import FormRow from '../FormRow/FormRow';
+import TextField from '../TextField/TextField';
+import Button from '../Button/Button';
 
 const Header = () => {
-  return(
+  return (
     <div className={styles.Header}>
-      <Column>
-        <Logo />
-      </Column>
+      <HeaderTop />
 
-      <Column alignRight>
-        <HeaderContent />
-      </Column>
+      <HeaderPrimaryContent>
+        <PageTitle text="Find your movie" />
+        <FormRow>
+          <TextField />
+          <Button text="search" style="Accent"/>
+        </FormRow>
+      </HeaderPrimaryContent>
     </div>
   )
 };

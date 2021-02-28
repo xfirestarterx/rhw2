@@ -2,16 +2,15 @@ import React from 'react';
 import styles from './Column.styl';
 import PropTypes from 'prop-types';
 
-const Column = ({ alignRight = false, children }) => {
+const Column = ({ children }) => {
   return (
-    <div className={`${styles.Column} ${alignRight ? styles.AlignRight : ''}`}>
+    <div className={styles.Column}>
       {children}
     </div>
   );
 };
 
-Column.PropTypes = {
-  alignRight: PropTypes.bool,
+Column.propTypes = {
   children: PropTypes.element.isRequired
 }
 
