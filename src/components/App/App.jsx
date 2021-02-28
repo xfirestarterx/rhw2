@@ -1,6 +1,13 @@
 import React from 'react';
-import styles from './App.styl';
+import './App.styl';
+import Header from '../Header/Header';
 
-const App = () => <div className={styles.App}>This is the App</div>;
+const App = () => {
+  return (
+    <div className="App">
+      <Header />
+    </div>
+  );
+};
 
 export default App;
