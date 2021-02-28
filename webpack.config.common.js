@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx', '.styl']
     },
     entry: './src/main.js',
     output: {
@@ -30,16 +30,22 @@ module.exports = {
                 }
             },
             {
-                test: /\.css$/i,
-                exclude: /node_modules/,
+                test: /\.styl$/,
                 use: [
                     'style-loader',
                     {
                         loader: 'css-loader',
                         options: {
                             modules: true,
-                        },
+                            sourceMap: true
+                        }
                     },
+                    {
+                      loader: 'stylus-loader',
+                      options: {
+                        sourceMap: true
+                      }
+                    }
                 ],
             },
         ]
