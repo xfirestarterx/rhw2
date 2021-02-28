@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TabItem = () => <>TabItem</>;
+const TabItem = ({ title }) => <div className="TabItem">{title}</div>;
 
 TabItem.propTypes = {
+  title: PropTypes.string.isRequired
 };
 
 export default TabItem;
