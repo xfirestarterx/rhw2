@@ -1,10 +1,10 @@
 import React from 'react';
-import logo from '../../img/logo.svg';
-// import logo from '../../img/logo.png';
+import styles from './Logo.styl';
+import logo from '../../img/logo.png';
 
 const Logo = () => {
   return (
-    <div className="Logo">
+    <div className={styles.LogoWrap}>
       <img src={logo} />
     </div>
   )
