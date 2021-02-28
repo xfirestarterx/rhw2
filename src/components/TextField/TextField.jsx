@@ -1,9 +1,8 @@
 import React from 'react';
+import styles from './TextField.styl';
 import PropTypes from 'prop-types';
 
-const TextField = ({ placeholder }) => {
-    return <input type='text' placeholder={placeholder} />
-};
+const TextField = ({ placeholder }) => <input className={styles.TextField} type='text' placeholder={placeholder} />;
 
 TextField.propTypes = {
     placeholder: PropTypes.string
