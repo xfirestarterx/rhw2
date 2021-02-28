@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Column.styl';
+import PropTypes from 'prop-types';
 
 const Column = ({ alignRight = false, children }) => {
   return (
@@ -8,5 +9,10 @@ const Column = ({ alignRight = false, children }) => {
     </div>
   );
 };
+
+Column.PropTypes = {
+  alignRight: PropTypes.bool,
+  children: PropTypes.element.isRequired
+}
 
 export default Column;
