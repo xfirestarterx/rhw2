@@ -8,6 +8,7 @@ import CardsList from '../CardsList/CardsList';
 import moviesData from '../../data/data';
 import FoundMoviesMessage from '../FoundMoviesMessage/FoundMoviesMessage';
 import normalizeMoviesData from '../../utils/normalizeMoviesData';
+import MoviesListErrorBoundary from '../MoviesListErrorBoundary/MoviesListErrorBoundary';
 
 const filterItems = [
   { id: 1, title: 'all', isActive: true },
@@ -40,7 +41,9 @@ const MainContent = () => {
       </div>
 
       <FoundMoviesMessage count={39} text='movies found' />
-      <CardsList items={normalizedMoviesData} />
+      <MoviesListErrorBoundary items={normalizedMoviesData}>
+        <CardsList items={normalizedMoviesData} />
+      </MoviesListErrorBoundary>
     </div>
   );
 };

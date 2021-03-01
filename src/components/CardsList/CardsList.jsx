@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import Card from '../Card/Card';
 
 const CardsList = ({ items }) => {
-  if (!items || !items.length) return null;
-
   return (
     <div className={styles.CardsList}>
       {items.map(item => <Card key={item.id} {...item} /> )}
