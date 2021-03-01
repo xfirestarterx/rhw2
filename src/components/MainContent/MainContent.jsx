@@ -4,8 +4,10 @@ import TabbedFilter from '../TabbedFilter/TabbedFilter';
 import LabeledDropdown from '../LabeledDropdown/LabeledDropdown';
 import Row from '../Row/Row';
 import Column from '../Column/Column';
-import TextMessage from '../TextMessage/TextMessage';
 import CardsList from '../CardsList/CardsList';
+import moviesData from '../../data/data';
+import FoundMoviesMessage from '../FoundMoviesMessage/FoundMoviesMessage';
+import normalizeMoviesData from '../../utils/normalizeMoviesData';
 
 const filterItems = [
   { id: 1, title: 'all', isActive: true },
@@ -19,6 +21,8 @@ const dropDownOptions = {
   labelText: 'sort by',
   optionText: 'release date'
 };
+
+const normalizedMoviesData = normalizeMoviesData(moviesData);
 
 const MainContent = () => {
   return (
@@ -35,8 +39,8 @@ const MainContent = () => {
         </Row>
       </div>
 
-      <TextMessage />
-      <CardsList />
+      <FoundMoviesMessage count={39} text='movies found' />
+      <CardsList items={normalizedMoviesData} />
     </div>
   );
 };
