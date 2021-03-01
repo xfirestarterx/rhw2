@@ -6,7 +6,7 @@ import HeaderTop from '../HeaderTop/HeaderTop';
 import FormRow from '../FormRow/FormRow';
 import TextField from '../TextField/TextField';
 import Button from '../Button/Button';
-import img from '../../img/header-bg.jpg';
+import img from '../../img/header-bg';
 
 const Header = () => {
   return (
