@@ -1,19 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import styles from './Footer.styl';
 import Center from '../Center/Center';
 import FooterLogo from '../FooterLogo/FooterLogo';
 
 const Footer = () => {
   return (
-    <div className="Footer">
+    <div className={styles.Footer}>
       <Center>
         <FooterLogo />
       </Center>
     </div>
   );
-};
-
-Footer.propTypes = {
 };
 
 export default Footer;
