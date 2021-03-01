@@ -18,9 +18,7 @@ const filterItems = [
 const dropDownOptions = {
   labelText: 'sort by',
   optionText: 'release date'
-}
-
-// TODO HOC withWrapper
+};
 
 const MainContent = () => {
   return (
