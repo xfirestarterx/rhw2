@@ -15,6 +15,13 @@ const filterItems = [
   { id: 5, title: 'crime' }
 ];
 
+const dropDownOptions = {
+  labelText: 'sort by',
+  optionText: 'release date'
+}
+
+// TODO HOC withWrapper
+
 const MainContent = () => {
   return (
     <div className={styles.MainContent}>
@@ -25,7 +32,7 @@ const MainContent = () => {
           </Column>
 
           <Column>
-            <LabeledDropdown />
+            <LabeledDropdown {...dropDownOptions}/>
           </Column>
         </Row>
       </div>
