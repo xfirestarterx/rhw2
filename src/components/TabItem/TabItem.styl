@@ -1,0 +1,19 @@
+@import '../../variables.styl'
+
+.TabItem
+  text-transform uppercase
+  cursor pointer
+  margin 0 15px
+  padding 10px 5px
+  position relative
+
+.TabItemActive:before
+  content " "
+  position absolute
+  left 0
+  right 0
+  bottom -13px
+  height 3px
+  background $accent
+  z-index 2
+
