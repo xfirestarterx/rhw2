@@ -5,9 +5,7 @@ import LabeledDropdown from '../LabeledDropdown/LabeledDropdown';
 import Row from '../Row/Row';
 import Column from '../Column/Column';
 import CardsList from '../CardsList/CardsList';
-import moviesData from '../../data/data';
 import FoundMoviesMessage from '../FoundMoviesMessage/FoundMoviesMessage';
-import normalizeMoviesData from '../../utils/normalizeMoviesData';
 import MoviesListErrorBoundary from '../MoviesListErrorBoundary/MoviesListErrorBoundary';
 
 const filterItems = [
@@ -22,8 +20,6 @@ const dropDownOptions = {
   labelText: 'sort by',
   optionText: 'release date'
 };
-
-const normalizedMoviesData = normalizeMoviesData(moviesData);
 
 const MainContent = () => {
   return (
@@ -41,8 +37,8 @@ const MainContent = () => {
       </div>
 
       <FoundMoviesMessage count={39} text='movies found' />
-      <MoviesListErrorBoundary items={normalizedMoviesData}>
-        <CardsList items={normalizedMoviesData} />
+      <MoviesListErrorBoundary items={[]}>
+        <CardsList items={[]} />
       </MoviesListErrorBoundary>
     </div>
   );

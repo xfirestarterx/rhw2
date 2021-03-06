@@ -16,7 +16,7 @@ const Button = ({ text = 'Default text', onClick = null, theme = 'Default', prop
 Button.propTypes = {
   text: PropTypes.string,
   onClick: PropTypes.func,
-  theme: PropTypes.oneOf(['Accent', 'Default'])
+  theme: PropTypes.oneOf(['Confirm', 'Dismiss', 'Default'])
 };
 
 export default Button;

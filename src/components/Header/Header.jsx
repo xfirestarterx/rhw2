@@ -20,7 +20,7 @@ const Header = () => {
           <TextField placeholder='What do you want to watch?' />
           <Button
             text="search"
-            theme="Accent"
+            theme="Confirm"
             propStyles={{ marginLeft: '20px' }} />
         </FormRow>
       </HeaderPrimaryContent>
