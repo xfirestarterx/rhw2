@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.styl';
+import styles from './App.styl';
 import Header from '../Header/Header';
 import MainContent from '../MainContent/MainContent';
 import Footer from '../Footer/Footer';
@@ -9,7 +9,7 @@ const MainContentWithWrapper = WithWrapper(MainContent);
 
 const App = () => {
   return (
-    <div className="App">
+    <div className={styles.App}>
       <Header />
       <MainContentWithWrapper />
       <Footer />
