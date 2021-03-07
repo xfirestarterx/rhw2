@@ -15,7 +15,20 @@ const filterItems = [
 
 const dropDownOptions = {
   labelText: 'sort by',
-  optionText: 'release date'
+  options: [
+    {
+      text: 'Option 1',
+      value: 'value 1'
+    },
+    {
+      text: 'Option 2',
+      value: 'value 2'
+    },
+    {
+      text: 'Option 3',
+      value: 'value 3'
+    }
+  ]
 };
 
 const MainContentTop = () => {
@@ -27,7 +40,7 @@ const MainContentTop = () => {
         </Column>
 
         <Column>
-          <LabeledDropdown {...dropDownOptions} />
+          <LabeledDropdown labelText={dropDownOptions.labelText} optionsList={dropDownOptions.options} />
         </Column>
       </Row>
     </div>
