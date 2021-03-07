@@ -7,6 +7,7 @@ import Column from '../Column/Column';
 import CardsList from '../CardsList/CardsList';
 import FoundMoviesMessage from '../FoundMoviesMessage/FoundMoviesMessage';
 import MoviesListErrorBoundary from '../MoviesListErrorBoundary/MoviesListErrorBoundary';
+import { MainContext } from '../MainContextProvider/MainContextProvider';
 
 const filterItems = [
   { id: 1, title: 'all', isActive: true },
@@ -31,15 +32,25 @@ const MainContent = () => {
           </Column>
 
           <Column>
-            <LabeledDropdown {...dropDownOptions}/>
+            <LabeledDropdown {...dropDownOptions} />
           </Column>
         </Row>
       </div>
 
       <FoundMoviesMessage count={39} text='movies found' />
-      <MoviesListErrorBoundary items={[]}>
-        <CardsList items={[]} />
-      </MoviesListErrorBoundary>
+      <MainContext.Consumer>
+        {({ isLoading, moviesList }) => {
+          return (
+            <>
+              { isLoading && <p>Loading...</p> }
+
+              <MoviesListErrorBoundary isLoading={isLoading} items={moviesList}>
+                <CardsList items={moviesList} />
+              </MoviesListErrorBoundary>
+            </>
+          )
+        }}
+      </MainContext.Consumer>
     </div>
   );
 };

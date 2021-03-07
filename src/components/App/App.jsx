@@ -6,27 +6,37 @@ import Footer from '../Footer/Footer';
 import WithWrapper from '../WithWrapper/WithWrapper';
 import fetchMovies from '../../utils/fetchMovies';
 import normalizeMoviesData from '../../utils/normalizeMoviesData';
+import MainContextProvider from '../MainContextProvider/MainContextProvider';
 
 const MainContentWithWrapper = WithWrapper(MainContent);
 class App extends React.Component {
   state = {
-    movies: [],
+    moviesList: [],
     isLoading: true
   }
 
   render() {
+    const { isLoading, moviesList } = this.state;
+
     return (
-      <div className={styles.App}>
-        <Header />
-        <MainContentWithWrapper />
-        <Footer />
-      </div>
+      <MainContextProvider isLoading={isLoading} moviesList={moviesList}>
+        <div className={styles.App}>
+          <Header />
+          <MainContentWithWrapper />
+          <Footer />
+        </div>
+      </MainContextProvider>
     );
   }
 
   async componentDidMount() {
     const fetchedMoviesData = await fetchMovies();
-    const normalizedMoviesData = normalizeMoviesData(fetchedMoviesData);
+
+    this.setState({
+      ...this.state,
+      isLoading: false,
+      moviesList: normalizeMoviesData(fetchedMoviesData)
+    });
   }
 }
 
