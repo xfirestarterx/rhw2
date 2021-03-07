@@ -4,13 +4,20 @@ import PropTypes from 'prop-types';
 import CardTitle from '../CardTitle/CardTitle';
 import CardLabel from '../CardLabel/CardLabel';
 import CardSubtitle from '../CardSubtitle/CardSubtitle';
+import Row from '../Row/Row';
+import Button, { buttonThemes } from '../Button/Button';
 
-const CardFooter = ({ title, subtitle, label }) => {
+const CardFooter = ({ title, subtitle, label, deleteHandler, editHandler }) => {
   return (
     <div className={styles.CardFooter}>
       <CardTitle text={title} />
       <CardSubtitle text={subtitle} />
       <CardLabel text={label} />
+
+      <Row className={styles.Actions}>
+        <Button onClick={deleteHandler} text='Delete' theme={buttonThemes.dismiss} />
+        <Button onClick={editHandler} text='Edit' theme={buttonThemes.confirm} propStyles={{marginLeft: '20px'}} />
+      </Row>
     </div>
   );
 };
@@ -18,7 +25,9 @@ const CardFooter = ({ title, subtitle, label }) => {
 CardFooter.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
-  label: PropTypes.string
+  label: PropTypes.string,
+  deleteHandler: PropTypes.func,
+  editHandler: PropTypes.func
 };
 
 export default CardFooter;
