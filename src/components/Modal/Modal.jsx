@@ -15,9 +15,10 @@ const Modal = ({ title, children }) => {
 
   return (
     <div className={styles.ModalWrap}>
-      <div onClick={closeModal} className={styles.Overlay}></div>
+      <div onClick={closeModal} className={styles.Overlay} />
       <div className={styles.ModalContent}>
-        { title && <p>{title}</p> }
+        <div onClick={closeModal} className={styles.ModalClose} />
+        { title && <p className={styles.ModalTitle}>{title}</p> }
         { children }
       </div>
     </div>
