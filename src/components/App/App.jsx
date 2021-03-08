@@ -19,6 +19,14 @@ class App extends React.Component {
     isModalShown: false
   }
 
+  #openModal(modalType) {
+    this.setState({ isModalShown: true, currentModal: modalType });
+  }
+
+  #closeModal() {
+    this.setState({ isModalShown: false, currentModal: modalType.none });
+  }
+
   render() {
     const {
       isLoading,
@@ -27,12 +35,8 @@ class App extends React.Component {
       isModalShown
     } = this.state;
 
-    const openModal = modalType => this.setState({...this.state, isModalShown: true, currentModal: modalType});
-
-    const closeModal = () => this.setState({...this.state, isModalShown: false, currentModal: modalType.none});
-
     return (
-      <MainContextProvider openModal={openModal} closeModal={closeModal} isLoading={isLoading} moviesList={moviesList}>
+      <MainContextProvider openModal={this.#openModal.bind(this)} closeModal={this.#closeModal.bind(this)} isLoading={isLoading} moviesList={moviesList}>
         <div className={styles.App}>
           <Header />
           <MainContentWithWrapper />
@@ -47,7 +51,6 @@ class App extends React.Component {
     const fetchedMoviesData = await fetchMovies();
 
     this.setState({
-      ...this.state,
       isLoading: false,
       moviesList: normalizeMoviesData(fetchedMoviesData)
     });

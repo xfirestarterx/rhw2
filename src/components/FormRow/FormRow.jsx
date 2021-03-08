@@ -16,7 +16,7 @@ const FormRow = ({ children, maxWidth='none', flowAxis = flowAxisType.x, justify
 };
 
 FormRow.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element),
+  children: PropTypes.any,
   maxWidth: PropTypes.string,
   flowAxis: PropTypes.string,
   justifyContent: PropTypes.string
