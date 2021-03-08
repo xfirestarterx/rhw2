@@ -2,7 +2,17 @@ import React, { useState } from 'react';
 import styles from './LabeledDropdown.styl';
 import PropTypes from 'prop-types';
 
-const LabeledDropdown = ({ labelText, optionsList }) => {
+export const containerWidth = {
+  auto: 'auto',
+  full: '100%'
+}
+
+export const dropdownTheme = {
+  light: 'Light',
+  dark: 'Dark'
+}
+
+const LabeledDropdown = ({ labelText, optionsList, width = containerWidth.auto, theme = dropdownTheme.light }) => {
   const [isShown, updateIsShown] = useState(false);
   const toggleVisibility = () => updateIsShown(!isShown);
 
@@ -10,11 +20,11 @@ const LabeledDropdown = ({ labelText, optionsList }) => {
     <div className={styles.LabeledDropdown}>
       {labelText && <label className={styles.Label}>{labelText}</label>}
 
-      <div className={styles.Container}>
+      <div className={styles.Container} style={{width: width}}>
         <div
           key={0}
           data-value={optionsList[0]?.value}
-          className={styles.SelectedOption}
+          className={`${styles.SelectedOption} ${styles[theme]}`}
           onClick={toggleVisibility}>
           {optionsList[0]?.text}
         </div>
@@ -50,7 +60,9 @@ LabeledDropdown.propTypes = {
       text: PropTypes.string,
       value: PropTypes.any
     }).isRequired
-  )
+  ),
+  width: PropTypes.string,
+  theme: PropTypes.string
 };
 
 export default LabeledDropdown;

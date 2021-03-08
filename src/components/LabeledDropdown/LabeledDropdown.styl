@@ -4,7 +4,6 @@
   text-transform uppercase
   display flex
   padding 10px 0
-  justify-content end
   margin-right 10px
 
 .Label
@@ -20,7 +19,17 @@
 .SelectedOption
   cursor pointer
 
-.SelectedOption:before
+.Container
+  width 100%
+
+.SelectedOption
+  &.Dark
+    background rgba(0,0,0,.7)
+
+  &.Light
+    background transparent
+
+  &:before
     position absolute
     content ' '
     top 50%
@@ -36,6 +45,8 @@
   position absolute
   top 100%
   left 0
+  right 0
+  min-width 110px
   background $dark200
   margin-top 15px
   white-space nowrap

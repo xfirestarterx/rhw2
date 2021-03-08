@@ -2,9 +2,14 @@ import React from 'react';
 import styles from './FormRow.styl';
 import PropTypes from 'prop-types';
 
-const FormRow = ({ children, maxWidth='none' }) => {
+export const flowAxisType = {
+  x: 'AxisX',
+  y: 'AxisY'
+}
+
+const FormRow = ({ children, maxWidth='none', flowAxis = flowAxisType.x, justifyContent = 'Start' }) => {
   return (
-    <div className={styles.FormRow} style={{maxWidth: `${maxWidth}px`}}>
+    <div className={`${styles.FormRow} ${styles[flowAxis]} ${styles[justifyContent]}`} style={{maxWidth: `${maxWidth}px`}}>
       {children}
     </div>
   );
@@ -12,7 +17,9 @@ const FormRow = ({ children, maxWidth='none' }) => {
 
 FormRow.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
-  maxWidth: PropTypes.string
+  maxWidth: PropTypes.string,
+  flowAxis: PropTypes.string,
+  justifyContent: PropTypes.string
 };
 
 export default FormRow;
