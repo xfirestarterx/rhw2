@@ -1,12 +1,12 @@
 import React from 'react';
 import Modal from '../Modal/Modal';
 
-const ModalAddMovie = () => {
+const ModalDeleteMovie = () => {
   return (
-    <Modal title='Add movie'>
+    <Modal title='delete movie'>
       content
     </Modal>
   );
 };
 
-export default ModalAddMovie;
+export default ModalDeleteMovie;

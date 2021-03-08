@@ -1,0 +1,30 @@
+@import '../../variables.styl'
+
+.ModalWrap
+  position fixed
+  top 0
+  right 0
+  bottom 0
+  left 0
+  z-index 1
+  display flex
+  justify-content center
+  align-items center
+
+.Overlay
+  position fixed
+  top 0
+  right 0
+  bottom 0
+  left 0
+  background rgba(0,0,0,.5)
+  z-index 2
+
+.ModalContent
+  position relative
+  z-index 3
+  padding 50px
+  background $dark100
+  width 50vw
+  max-height 50vh
+  overflow-y auto

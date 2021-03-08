@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './CardsList.styl';
 import PropTypes from 'prop-types';
 import Card from '../Card/Card';

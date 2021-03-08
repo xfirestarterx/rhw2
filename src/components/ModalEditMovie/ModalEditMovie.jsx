@@ -3,7 +3,7 @@ import Modal from '../Modal/Modal';
 
 const ModalAddMovie = () => {
   return (
-    <Modal title='Add movie'>
+    <Modal title='edit movie'>
       content
     </Modal>
   );

@@ -8,15 +8,17 @@ export const MainContext = React.createContext({
 MainContext.displayName = 'MainContext';
 
 
-const MainContextProvider = ({ isLoading, moviesList, children }) => {
+const MainContextProvider = ({ openModal, closeModal, isLoading, moviesList, children }) => {
   return (
-    <MainContext.Provider value={{ isLoading, moviesList }}>
+    <MainContext.Provider value={{ openModal, closeModal, isLoading, moviesList }}>
       { children }
     </MainContext.Provider>
   );
 };
 
 MainContextProvider.propTypes = {
+  openModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   moviesList: PropTypes.arrayOf(PropTypes.object),
   children: PropTypes.oneOfType([
