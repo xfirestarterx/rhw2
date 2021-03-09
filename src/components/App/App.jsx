@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './App.styl';
 import Header from '../Header/Header';
 import MainContent from '../MainContent/MainContent';
@@ -11,50 +11,40 @@ import ModalsWrapper from '../ModalsWrapper/ModalsWrapper';
 import { modalType } from '../Modal/Modal';
 
 const MainContentWithWrapper = WithWrapper(MainContent);
-class App extends React.Component {
-  state = {
-    moviesList: [],
-    isLoading: true,
-    currentModal: modalType.none,
-    isModalShown: false
+
+const App = () => {
+  const [moviesList, setMoviesList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentModal, setCurrentModal] = useState(modalType.none);
+  const [isModalShown, setIsModalShown] = useState(false);
+
+  const openModal = modalType => {
+    setCurrentModal(modalType);
+    setIsModalShown(true);
   }
 
-  #openModal(modalType) {
-    this.setState({ isModalShown: true, currentModal: modalType });
+  const closeModal = () => {
+    setCurrentModal(modalType.none);
+    setIsModalShown(false);
   }
 
-  #closeModal() {
-    this.setState({ isModalShown: false, currentModal: modalType.none });
-  }
-
-  render() {
-    const {
-      isLoading,
-      moviesList,
-      currentModal,
-      isModalShown
-    } = this.state;
-
-    return (
-      <MainContextProvider openModal={this.#openModal.bind(this)} closeModal={this.#closeModal.bind(this)} isLoading={isLoading} moviesList={moviesList}>
-        <div className={styles.App}>
-          <Header />
-          <MainContentWithWrapper />
-          <Footer />
-          <ModalsWrapper currentModal={currentModal} isModalShown={isModalShown} />
-        </div>
-      </MainContextProvider>
-    );
-  }
-
-  async componentDidMount() {
+  useEffect(async () => {
     const fetchedMoviesData = await fetchMovies();
 
-    this.setState({
-      isLoading: false,
-      moviesList: normalizeMoviesData(fetchedMoviesData)
-    });
-  }
-}
+    setIsLoading(false);
+    setMoviesList(normalizeMoviesData(fetchedMoviesData));
+  }, []);
+
+  return (
+    <MainContextProvider openModal={openModal} closeModal={closeModal} isLoading={isLoading} moviesList={moviesList}>
+      <div className={styles.App}>
+        <Header />
+        <MainContentWithWrapper />
+        <Footer />
+        <ModalsWrapper currentModal={currentModal} isModalShown={isModalShown} />
+      </div>
+    </MainContextProvider>
+  );
+};
 
 export default App;
