@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './App.styl';
 import Header from '../Header/Header';
 import MainContent from '../MainContent/MainContent';
@@ -18,15 +18,15 @@ const App = () => {
   const [currentModal, setCurrentModal] = useState(modalType.none);
   const [isModalShown, setIsModalShown] = useState(false);
 
-  const openModal = modalType => {
+  const openModal = useCallback(modalType => {
     setCurrentModal(modalType);
     setIsModalShown(true);
-  }
+  }, [currentModal, isModalShown]);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setCurrentModal(modalType.none);
     setIsModalShown(false);
-  }
+  }, [currentModal, isModalShown]);
 
   useEffect(async () => {
     const fetchedMoviesData = await fetchMovies();
