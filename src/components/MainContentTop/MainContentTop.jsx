@@ -17,15 +17,15 @@ const dropDownOptions = {
   labelText: 'sort by',
   options: [
     {
-      text: 'Option 1',
+      label: 'Option 1',
       value: 'value 1'
     },
     {
-      text: 'Option 2',
+      label: 'Option 2',
       value: 'value 2'
     },
     {
-      text: 'Option 3',
+      label: 'Option 3',
       value: 'value 3'
     }
   ]
@@ -40,7 +40,7 @@ const MainContentTop = () => {
         </Column>
 
         <Column>
-          <LabeledDropdown labelText={dropDownOptions.labelText} optionsList={dropDownOptions.options} />
+          <LabeledDropdown labelText={dropDownOptions.labelText} optionsList={dropDownOptions.options} width={140} />
         </Column>
       </Row>
     </div>
