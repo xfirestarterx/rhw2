@@ -11,6 +11,7 @@ module.exports = {
     hot: true,
     noInfo: true,
     open: false,
+    historyApiFallback: true,
   },
   plugins: [ new webpack.HotModuleReplacementPlugin() ]
 };

@@ -10,7 +10,7 @@ import normalizeMoviesData from '../../utils/normalizeMoviesData';
 import MainContextProvider from '../MainContextProvider/MainContextProvider';
 import ModalsWrapper from '../ModalsWrapper/ModalsWrapper';
 import { modalType } from '../Modal/Modal';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 const MainContentWithWrapper = WithWrapper(MainContent);
 
@@ -42,10 +42,7 @@ const App = () => {
       <div className={styles.App}>
         <BrowserRouter>
           <Switch>
-            <Route exact path='/'>
-              <Link to="/movie/1">sfg</Link>
-              <Header />
-            </Route>
+            <Route exact path='/' component={Header} />
             <Route path='/movie/:id' component={MovieHeader} />
           </Switch>
         </BrowserRouter>
