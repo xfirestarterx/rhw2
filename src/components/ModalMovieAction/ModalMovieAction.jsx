@@ -1,7 +1,7 @@
 import React from 'react';
 import FormLabel from '../FormLabel/FormLabel';
 import FormRow, { flowAxisType } from '../FormRow/FormRow';
-import Modal from '../Modal/Modal';
+import Modal, { modalType } from '../Modal/Modal';
 import TextField from '../TextField/TextField';
 import GenericInput from '../GenericInput/GenericInput';
 import Button, { buttonThemes } from '../Button/Button';
@@ -32,9 +32,20 @@ const genres = [
   }
 ];
 
-const ModalAddMovie = () => {
+const ModalMovieAction = ({ currentModal }) => {
+  const title = currentModal === modalType.add ? 'Add movie' : 'Edit movie';
+
+  const movieIdRow = (
+    <FormRow flowAxis={flowAxisType.y}>
+      <FormLabel text='movie id' />
+      <p style={{margin: 0}}>MO32820TH</p>
+    </FormRow>
+  );
+
   return (
-    <Modal title='Add movie'>
+    <Modal title={title}>
+      { (currentModal === modalType.edit) && movieIdRow }
+
       <FormRow flowAxis={flowAxisType.y}>
         <FormLabel attrFor={inputs.title} text='title' />
         <TextField id={inputs.title} placeholder='Add title' />
@@ -73,4 +84,4 @@ const ModalAddMovie = () => {
   );
 };
 
-export default ModalAddMovie;
+export default ModalMovieAction;
