@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import FormLabel from '../FormLabel/FormLabel';
 import FormRow, { flowAxisType } from '../FormRow/FormRow';
 import Modal, { modalType } from '../Modal/Modal';
@@ -6,6 +6,7 @@ import TextField from '../TextField/TextField';
 import GenericInput from '../GenericInput/GenericInput';
 import Button, { buttonThemes } from '../Button/Button';
 import Dropdown from '../Dropdown/Dropdown';
+import MainContext from '../MainContext/MainContext';
 
 const getInputId = (name) => `modal-add-input-${name}`;
 
@@ -34,6 +35,8 @@ const genres = [
 
 const ModalMovieAction = ({ currentModal }) => {
   const title = currentModal === modalType.add ? 'Add movie' : 'Edit movie';
+  const { addMovie } = useContext(MainContext);
+  const obj = { genre: 'some genre', year: '2020', title: 'Some movie', img: 'https://via.placeholder.com/440x550.png?text=Some+movie' }
 
   const movieIdRow = (
     <FormRow flowAxis={flowAxisType.y}>
@@ -78,7 +81,7 @@ const ModalMovieAction = ({ currentModal }) => {
 
       <FormRow justifyContent='End'>
         <Button theme={buttonThemes.dismiss} text='reset' propStyles={{maxWidth: '100px'}} />
-        <Button theme={buttonThemes.confirm} text='submit' propStyles={{maxWidth: '100px', marginLeft: '20px'}} />
+        <Button onClick={() => addMovie(obj)} theme={buttonThemes.confirm} text='submit' propStyles={{maxWidth: '100px', marginLeft: '20px'}} />
       </FormRow>
     </Modal>
   );

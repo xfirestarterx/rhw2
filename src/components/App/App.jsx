@@ -30,10 +30,22 @@ const App = () => {
     setIsModalShown(false);
   }, [currentModal, isModalShown]);
 
-  const addMovie = ({ id = moviesList.length + 1, genre = '', year = '', title = '', img = '' }) => {
-    setMoviesList([...moviesList, {
-      id, genre, year, title, img
+  const addMovie = ({
+    id = moviesList.length + 1,
+    genre = '',
+    year = '',
+    title = '',
+    img = ''
+  }) => {
+    const normalizedData = normalizeMoviesData([{
+      id,
+      genre,
+      year,
+      title,
+      img
     }]);
+
+    setMoviesList([...moviesList, ...normalizedData]);
   }
 
   useEffect(async () => {
@@ -44,7 +56,7 @@ const App = () => {
   }, []);
 
   return (
-    <MainContext.Provider value={{openModal, closeModal, isLoading, moviesList, addMovie}} >
+    <MainContext.Provider value={{ openModal, closeModal, isLoading, moviesList, addMovie }} >
       <div className={styles.App}>
         <BrowserRouter>
           <Switch>
