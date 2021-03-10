@@ -3,15 +3,19 @@ import styles from './Card.styl';
 import PropTypes from 'prop-types';
 import CardImage from '../CardImage/CardImage';
 import CardFooter from '../CardFooter/CardFooter';
+import { Link } from 'react-router-dom';
 
-const Card = ({ img, title, subtitle, label }) => {
+const Card = ({ img, title, subtitle, label, id }) => {
   return (
     <div className={styles.Card}>
-      <CardImage img={img} />
+      <Link to={`/movie/${id}`}>
+        <CardImage img={img} />
+      </Link>
       <CardFooter
         title={title}
         subtitle={subtitle}
-        label={label} />
+        label={label}
+        id={id} />
     </div>
   );
 };

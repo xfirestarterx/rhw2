@@ -38,18 +38,18 @@ const App = () => {
   }, []);
 
   return (
-    <MainContext.Provider value={{openModal, closeModal, isLoading, moviesList}} >
+    <MainContext.Provider value={{ openModal, closeModal, isLoading, moviesList }} >
       <div className={styles.App}>
         <BrowserRouter>
           <Switch>
             <Route exact path='/' component={Header} />
             <Route path='/movie/:id' component={MovieHeader} />
           </Switch>
-        </BrowserRouter>
 
-        <MainContentWithWrapper />
-        <Footer />
-        <ModalsWrapper currentModal={currentModal} isModalShown={isModalShown} />
+          <MainContentWithWrapper />
+          <Footer />
+          <ModalsWrapper currentModal={currentModal} isModalShown={isModalShown} />
+        </BrowserRouter>
       </div>
     </MainContext.Provider>
   );
