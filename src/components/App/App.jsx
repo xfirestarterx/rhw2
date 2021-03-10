@@ -50,6 +50,18 @@ const App = () => {
 
   const deleteMovie = id => setMoviesList(moviesList.filter(item => item.id !== id));
 
+  const editMovie = (updatedItem) => {
+    const { id } = updatedItem;
+
+    const updatedMovies = moviesList.map(item => {
+      if (item.id !== id) return item;
+      
+      return updatedItem;
+    });
+
+    setMoviesList(updatedMovies);
+  }
+
   useEffect(async () => {
     const fetchedMoviesData = await fetchMovies();
 
@@ -58,7 +70,7 @@ const App = () => {
   }, []);
 
   return (
-    <MainContext.Provider value={{ openModal, closeModal, isLoading, moviesList, addMovie, deleteMovie }} >
+    <MainContext.Provider value={{ openModal, closeModal, isLoading, moviesList, addMovie, deleteMovie, editMovie }} >
       <div className={styles.App}>
         <BrowserRouter>
           <Switch>

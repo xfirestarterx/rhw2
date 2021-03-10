@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import FormLabel from '../FormLabel/FormLabel';
 import FormRow, { flowAxisType } from '../FormRow/FormRow';
 import Modal, { modalType } from '../Modal/Modal';
@@ -35,8 +35,24 @@ const genres = [
 
 const ModalMovieAction = ({ currentModal }) => {
   const title = currentModal === modalType.add ? 'Add movie' : 'Edit movie';
-  const { addMovie } = useContext(MainContext);
+  const { addMovie, editMovie, closeModal } = useContext(MainContext);
   const obj = { genre: 'some genre', year: '2020', title: 'Some movie', img: 'https://via.placeholder.com/440x550.png?text=Some+movie' }
+  const objToEdit = {
+    id: 1,
+    ...obj
+  };
+
+  const dismissHandler = useCallback(closeModal);
+
+  const confirmHandler = useCallback(() => {
+    if (currentModal === modalType.add) {
+      addMovie(obj);
+    } else {
+      editMovie(objToEdit);
+    }
+
+    closeModal();
+  });
 
   const movieIdRow = (
     <FormRow flowAxis={flowAxisType.y}>
@@ -80,8 +96,8 @@ const ModalMovieAction = ({ currentModal }) => {
       </FormRow>
 
       <FormRow justifyContent='End'>
-        <Button theme={buttonThemes.dismiss} text='reset' propStyles={{maxWidth: '100px'}} />
-        <Button onClick={() => addMovie(obj)} theme={buttonThemes.confirm} text='submit' propStyles={{maxWidth: '100px', marginLeft: '20px'}} />
+        <Button onClick={dismissHandler} theme={buttonThemes.dismiss} text='reset' propStyles={{maxWidth: '100px'}} />
+        <Button onClick={confirmHandler} theme={buttonThemes.confirm} text='submit' propStyles={{maxWidth: '100px', marginLeft: '20px'}} />
       </FormRow>
     </Modal>
   );
