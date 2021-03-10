@@ -30,6 +30,12 @@ const App = () => {
     setIsModalShown(false);
   }, [currentModal, isModalShown]);
 
+  const addMovie = ({ id = moviesList.length + 1, genre = '', year = '', title = '', img = '' }) => {
+    setMoviesList([...moviesList, {
+      id, genre, year, title, img
+    }]);
+  }
+
   useEffect(async () => {
     const fetchedMoviesData = await fetchMovies();
 
@@ -38,7 +44,7 @@ const App = () => {
   }, []);
 
   return (
-    <MainContext.Provider value={{openModal, closeModal, isLoading, moviesList}} >
+    <MainContext.Provider value={{openModal, closeModal, isLoading, moviesList, addMovie}} >
       <div className={styles.App}>
         <BrowserRouter>
           <Switch>
