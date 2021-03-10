@@ -19,6 +19,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentModal, setCurrentModal] = useState(modalType.none);
   const [isModalShown, setIsModalShown] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState(undefined);
 
   const openModal = useCallback(modalType => {
     setCurrentModal(modalType);
@@ -70,7 +71,7 @@ const App = () => {
   }, []);
 
   return (
-    <MainContext.Provider value={{ openModal, closeModal, isLoading, moviesList, addMovie, deleteMovie, editMovie }} >
+    <MainContext.Provider value={{ openModal, closeModal, isLoading, moviesList, addMovie, deleteMovie, editMovie, selectedMovie, setSelectedMovie }} >
       <div className={styles.App}>
         <BrowserRouter>
           <Switch>

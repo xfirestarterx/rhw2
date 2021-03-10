@@ -5,9 +5,9 @@ import MainContext from '../MainContext/MainContext';
 import Modal from '../Modal/Modal';
 
 const ModalDeleteMovie = () => {
-  const { deleteMovie, closeModal } = useContext(MainContext);
+  const { deleteMovie, closeModal, selectedMovie } = useContext(MainContext);
   const confirmHandler = useCallback(() => {
-    deleteMovie(1);
+    deleteMovie(selectedMovie);
     closeModal();
   }, []);
 

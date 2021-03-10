@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import styles from './CardFooter.styl';
 import PropTypes from 'prop-types';
 import CardTitle from '../CardTitle/CardTitle';
@@ -9,8 +9,12 @@ import Button, { buttonThemes } from '../Button/Button';
 import MainContext from '../MainContext/MainContext';
 import { modalType } from '../Modal/Modal';
 
-const CardFooter = ({ title, subtitle, label }) => {
-  const { openModal } = useContext(MainContext);
+const CardFooter = ({ title, subtitle, label, id }) => {
+  const { openModal, setSelectedMovie } = useContext(MainContext);
+  const deleteHandler = useCallback(() => {
+    openModal(modalType.delete);
+    setSelectedMovie(id);
+  });
 
   return (
     <div className={styles.CardFooter}>
@@ -19,7 +23,7 @@ const CardFooter = ({ title, subtitle, label }) => {
       <CardLabel text={label} />
 
       <Row className={styles.Actions}>
-        <Button onClick={() => openModal(modalType.delete)} text='Delete' theme={buttonThemes.dismiss} />
+        <Button onClick={deleteHandler} text='Delete' theme={buttonThemes.dismiss} />
         <Button
           onClick={() => openModal(modalType.edit)}
           text='Edit'
@@ -35,7 +39,8 @@ CardFooter.propTypes = {
   subtitle: PropTypes.string,
   label: PropTypes.string,
   deleteHandler: PropTypes.func,
-  editHandler: PropTypes.func
+  editHandler: PropTypes.func,
+  id: PropTypes.number.isRequired
 };
 
 export default CardFooter;
