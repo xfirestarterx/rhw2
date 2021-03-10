@@ -6,7 +6,7 @@ import CardLabel from '../CardLabel/CardLabel';
 import CardSubtitle from '../CardSubtitle/CardSubtitle';
 import Row from '../Row/Row';
 import Button, { buttonThemes } from '../Button/Button';
-import { MainContext } from '../MainContextProvider/MainContextProvider';
+import MainContext from '../MainContext/MainContext';
 import { modalType } from '../Modal/Modal';
 
 const CardFooter = ({ title, subtitle, label }) => {

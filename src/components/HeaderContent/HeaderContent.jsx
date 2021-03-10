@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Button from '../Button/Button';
-import { MainContext } from '../MainContextProvider/MainContextProvider';
+import MainContext from '../MainContext/MainContext';
 import { modalType } from '../Modal/Modal';
 
 const HeaderContent = () => {

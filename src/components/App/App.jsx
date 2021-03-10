@@ -7,7 +7,7 @@ import Footer from '../Footer/Footer';
 import WithWrapper from '../WithWrapper/WithWrapper';
 import fetchMovies from '../../utils/fetchMovies';
 import normalizeMoviesData from '../../utils/normalizeMoviesData';
-import MainContextProvider from '../MainContextProvider/MainContextProvider';
+import MainContext from '../MainContext/MainContext';
 import ModalsWrapper from '../ModalsWrapper/ModalsWrapper';
 import { modalType } from '../Modal/Modal';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -38,7 +38,7 @@ const App = () => {
   }, []);
 
   return (
-    <MainContextProvider openModal={openModal} closeModal={closeModal} isLoading={isLoading} moviesList={moviesList}>
+    <MainContext.Provider value={{openModal, closeModal, isLoading, moviesList}} >
       <div className={styles.App}>
         <BrowserRouter>
           <Switch>
@@ -51,7 +51,7 @@ const App = () => {
         <Footer />
         <ModalsWrapper currentModal={currentModal} isModalShown={isModalShown} />
       </div>
-    </MainContextProvider>
+    </MainContext.Provider>
   );
 };
 
