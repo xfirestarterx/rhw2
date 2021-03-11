@@ -39,7 +39,7 @@ const MainContentTop = () => {
           <TabbedFilter items={filterItems} />
         </Column>
 
-        <Column>
+        <Column isRightAligned={true}>
           <LabeledDropdown labelText={dropDownOptions.labelText} optionsList={dropDownOptions.options} width={140} />
         </Column>
       </Row>

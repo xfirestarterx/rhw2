@@ -20,6 +20,8 @@ const App = () => {
   const [currentModal, setCurrentModal] = useState(modalType.none);
   const [isModalShown, setIsModalShown] = useState(false);
 
+  const escapeHandler = e => e.which === 27 && isModalShown ? closeModal() : void 0;
+
   const openModal = useCallback(modalType => {
     setCurrentModal(modalType);
     setIsModalShown(true);
@@ -39,7 +41,7 @@ const App = () => {
 
   return (
     <MainContext.Provider value={{ openModal, closeModal, isLoading, moviesList }} >
-      <div className={styles.App}>
+      <div onKeyUp={escapeHandler} className={styles.App}>
         <BrowserRouter>
           <Switch>
             <Route exact path='/' component={Header} />
