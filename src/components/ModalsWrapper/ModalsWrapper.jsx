@@ -1,19 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ModalAddMovie from '../ModalAddMovie/ModalAddMovie';
-import ModalEditMovie from '../ModalEditMovie/ModalEditMovie';
 import { modalType } from '../Modal/Modal';
 import ModalDeleteMovie from '../ModalDeleteMovie/ModalDeleteMovie';
+import ModalMovieAction from '../ModalMovieAction/ModalMovieAction';
 
 const ModalsWrapper = ({ isModalShown, currentModal }) => {
   if (!isModalShown) return null;
 
   switch (currentModal) {
     case modalType.add:
-      return <ModalAddMovie />;
+      return <ModalMovieAction currentModal={currentModal}/>;
 
     case modalType.edit:
-      return <ModalEditMovie />;
+      return <ModalMovieAction currentModal={currentModal} />;
 
     case modalType.delete:
       return <ModalDeleteMovie />
