@@ -10,7 +10,7 @@ module.exports = {
     port: 9000,
     hot: true,
     noInfo: true,
-    open: true,
+    open: false,
   },
   plugins: [ new webpack.HotModuleReplacementPlugin() ]
 };

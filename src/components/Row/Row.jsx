@@ -2,10 +2,9 @@ import React from 'react';
 import styles from './Row.styl';
 import PropTypes from 'prop-types';
 
-const Row = ({children}) => {
-
+const Row = ({children, className = ''}) => {
     return (
-        <div className={styles.Row}>
+        <div className={`${className} ${styles.Row}`}>
             {children}
         </div>
     );

@@ -22,7 +22,10 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: false
+              sourceMap: false,
+              modules: {
+                localIdentName: "[hash:base64:7]",
+              },
             }
           },
           {

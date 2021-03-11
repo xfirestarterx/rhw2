@@ -8,7 +8,10 @@ const Card = ({ img, title, subtitle, label }) => {
   return (
     <div className={styles.Card}>
       <CardImage img={img} />
-      <CardFooter title={title} subtitle={subtitle} label={label} />
+      <CardFooter
+        title={title}
+        subtitle={subtitle}
+        label={label} />
     </div>
   );
 };
