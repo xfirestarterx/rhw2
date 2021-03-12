@@ -4,7 +4,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   resolve: {
-    extensions: ['.js', '.jsx', '.styl', '.gif', '.png', '.jpg', '.jpeg', '.svg']
+    extensions: ['.js', '.jsx', '.styl', '.gif', '.png', '.jpg', '.jpeg', '.svg'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules']
   },
   entry: './src/main.js',
   output: {
