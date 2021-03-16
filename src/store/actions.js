@@ -10,3 +10,17 @@ export const openModal = (modalType) => ({
 export const closeModal = () => ({
   type: actionTypes.CLOSE_MODAL
 });
+
+export const setMovies = (movies) => ({
+  type: actionTypes.SET_MOVIES,
+  payload: {
+    movies
+  }
+});
+
+export const setIsLoading = (isLoading) => ({
+  type: actionTypes.SET_IS_LOADING,
+  payload: {
+    isLoading
+  }
+});

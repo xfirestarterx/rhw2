@@ -1,14 +1,12 @@
 import React, { useContext } from 'react';
+import { connect } from 'react-redux';
 import styles from './MainContent.styl';
 import CardsList from '../CardsList/CardsList';
 import FoundMoviesMessage from '../FoundMoviesMessage/FoundMoviesMessage';
 import MoviesListErrorBoundary from '../MoviesListErrorBoundary/MoviesListErrorBoundary';
 import MainContentTop from '../MainContentTop/MainContentTop';
-import MainContext from '../MainContext/MainContext';
 
-const MainContent = () => {
-  const { isLoading, moviesList } = useContext(MainContext);
-
+const MainContent = ({ movies, isLoading }) => {
   return (
     <div className={styles.MainContent}>
       <MainContentTop />
@@ -17,11 +15,13 @@ const MainContent = () => {
 
       { isLoading && <p>Loading...</p> }
 
-      <MoviesListErrorBoundary isLoading={isLoading} items={moviesList}>
-        <CardsList items={moviesList} />
+      <MoviesListErrorBoundary isLoading={isLoading} items={movies}>
+        <CardsList items={movies} />
       </MoviesListErrorBoundary>
     </div>
   );
 };
 
-export default MainContent;
+const mapStateToProps = ({ movies }) => movies;
+
+export default connect(mapStateToProps)(MainContent);

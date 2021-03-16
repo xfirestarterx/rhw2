@@ -6,7 +6,7 @@ const initialState = {
   isModalShown: false
 }
 
-export default (state, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case OPEN_MODAL: {
       return {
@@ -23,7 +23,7 @@ export default (state, action) => {
     }
 
     default: {
-      return initialState;
+      return state;
     }
   }
 }
