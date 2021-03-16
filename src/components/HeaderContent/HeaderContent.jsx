@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { openModal } from 'store/actions';
 import Button from '../Button/Button';
-import MainContext from '../MainContext/MainContext';
 import { modalType } from '../Modal/Modal';
 
-const HeaderContent = () => {
-  const { openModal } = useContext(MainContext);
-
+const HeaderContent = ({ openModal }) => {
   return <Button onClick={() => openModal(modalType.add)} text='+ Add movie' />;
 };
 
-export default HeaderContent;
+export default connect(null, { openModal })(HeaderContent);

@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { closeModal } from 'store/actions';
+import { connect } from 'react-redux';
 import styles from './App.styl';
 import Header from '../Header/Header';
 import MovieHeader from '../MovieHeader/MovieHeader';
@@ -9,28 +11,15 @@ import fetchMovies from '../../utils/fetchMovies';
 import normalizeMoviesData from '../../utils/normalizeMoviesData';
 import MainContext from '../MainContext/MainContext';
 import ModalsWrapper from '../ModalsWrapper/ModalsWrapper';
-import { modalType } from '../Modal/Modal';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 const MainContentWithWrapper = WithWrapper(MainContent);
 
-const App = () => {
+const App = ({ closeModal, isModalShown }) => {
   const [moviesList, setMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentModal, setCurrentModal] = useState(modalType.none);
-  const [isModalShown, setIsModalShown] = useState(false);
 
   const escapeHandler = e => e.which === 27 && isModalShown ? closeModal() : void 0;
-
-  const openModal = useCallback(modalType => {
-    setCurrentModal(modalType);
-    setIsModalShown(true);
-  }, [currentModal, isModalShown]);
-
-  const closeModal = useCallback(() => {
-    setCurrentModal(modalType.none);
-    setIsModalShown(false);
-  }, [currentModal, isModalShown]);
 
   useEffect(async () => {
     const fetchedMoviesData = await fetchMovies();
@@ -40,7 +29,7 @@ const App = () => {
   }, []);
 
   return (
-    <MainContext.Provider value={{ openModal, closeModal, isLoading, moviesList }} >
+    <MainContext.Provider value={{ isLoading, moviesList }} >
       <div onKeyUp={escapeHandler} className={styles.App}>
         <BrowserRouter>
           <Switch>
@@ -50,11 +39,13 @@ const App = () => {
 
           <MainContentWithWrapper />
           <Footer />
-          <ModalsWrapper currentModal={currentModal} isModalShown={isModalShown} />
+          <ModalsWrapper />
         </BrowserRouter>
       </div>
     </MainContext.Provider>
   );
 };
 
-export default App;
+const mapStateToProps = ({ modal }) => modal;
+
+export default connect(mapStateToProps, { closeModal })(App);
