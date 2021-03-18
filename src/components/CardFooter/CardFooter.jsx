@@ -6,16 +6,19 @@ import CardLabel from '../CardLabel/CardLabel';
 import CardSubtitle from '../CardSubtitle/CardSubtitle';
 import Row from '../Row/Row';
 import Button, { buttonThemes } from '../Button/Button';
-import { MainContext } from '../MainContextProvider/MainContextProvider';
+import MainContext from '../MainContext/MainContext';
 import { modalType } from '../Modal/Modal';
+import { Link } from 'react-router-dom';
 
-const CardFooter = ({ title, subtitle, label }) => {
+const CardFooter = ({ title, subtitle, label, id }) => {
   const { openModal } = useContext(MainContext);
 
   return (
     <div className={styles.CardFooter}>
-      <CardTitle text={title} />
-      <CardSubtitle text={subtitle} />
+      <Link className={styles.Link} to={`/movie/${id}`}>
+        <CardTitle text={title} />
+        <CardSubtitle text={subtitle} />
+      </Link>
       <CardLabel text={label} />
 
       <Row className={styles.Actions}>
@@ -24,7 +27,7 @@ const CardFooter = ({ title, subtitle, label }) => {
           onClick={() => openModal(modalType.edit)}
           text='Edit'
           theme={buttonThemes.confirm}
-          propStyles={{marginLeft: '20px'}} />
+          propStyles={{ marginLeft: '20px' }} />
       </Row>
     </div>
   );

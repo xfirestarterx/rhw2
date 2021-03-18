@@ -4,8 +4,8 @@ import FormRow, { flowAxisType } from '../FormRow/FormRow';
 import Modal, { modalType } from '../Modal/Modal';
 import TextField from '../TextField/TextField';
 import GenericInput from '../GenericInput/GenericInput';
-import LabeledDropdown, { containerWidth, dropdownTheme } from '../LabeledDropdown/LabeledDropdown';
 import Button, { buttonThemes } from '../Button/Button';
+import Dropdown from '../Dropdown/Dropdown';
 
 const getInputId = (name) => `modal-add-input-${name}`;
 
@@ -19,16 +19,16 @@ const inputs = {
 
 const genres = [
   {
-    value: undefined,
-    text: 'Select genre'
+    value: '',
+    label: 'Select genre'
   },
   {
     value: 'action & adventure',
-    text: 'Action & Adventure'
+    label: 'Action & Adventure'
   },
   {
     value: 'music',
-    text: 'Music'
+    label: 'Music'
   }
 ];
 
@@ -63,7 +63,7 @@ const ModalMovieAction = ({ currentModal }) => {
 
       <FormRow flowAxis={flowAxisType.y}>
         <FormLabel text='genre' />
-        <LabeledDropdown optionsList={genres} width={containerWidth.full} theme={dropdownTheme.dark} />
+        <Dropdown settings={{optionsList: genres, width: '100%'}} />
       </FormRow>
 
       <FormRow flowAxis={flowAxisType.y}>

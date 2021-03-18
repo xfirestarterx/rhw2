@@ -13,7 +13,7 @@ const HeaderTop = ({ }) => {
           <Logo />
         </Column>
 
-        <Column>
+        <Column isRightAligned={true}>
           <HeaderContent />
         </Column>
       </Row>

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styles from './Modal.styl';
 import PropTypes from 'prop-types';
-import { MainContext } from '../MainContextProvider/MainContextProvider';
+import MainContext from '../MainContext/MainContext';
 
 export const modalType = {
   add: 'add',
