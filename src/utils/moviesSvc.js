@@ -2,7 +2,7 @@ const base = `http://localhost:4000`;
 
 const call = (path, options = {}) => {
   const mergedOptions = {
-    heders: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json' },
     ...options
   };
 
@@ -13,9 +13,9 @@ const call = (path, options = {}) => {
   });
 }
 
-export const getAll = async () => await call('/movies');
+export const getAll = async () => await call('/movies').then(({data}) => data);
 
-export const create = async (movie) => await call('/movies', {
+export const add = async (movie) => await call('/movies', {
   method: 'POST',
   body: JSON.stringify(movie)
 });

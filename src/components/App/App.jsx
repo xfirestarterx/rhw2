@@ -7,10 +7,10 @@ import MovieHeader from '../MovieHeader/MovieHeader';
 import MainContent from '../MainContent/MainContent';
 import Footer from '../Footer/Footer';
 import WithWrapper from '../WithWrapper/WithWrapper';
-import fetchMovies from '../../utils/fetchMovies';
 import normalizeMoviesData from '../../utils/normalizeMoviesData';
 import ModalsWrapper from '../ModalsWrapper/ModalsWrapper';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import * as moviesSvc from 'utils/moviesSvc';
 
 const MainContentWithWrapper = WithWrapper(MainContent);
 
@@ -19,9 +19,10 @@ const App = ({ closeModal, isModalShown, setMovies, setIsLoading }) => {
 
   useEffect(async () => {
     setIsLoading(true);
-    const fetchedMoviesData = await fetchMovies();
 
-    setMovies(normalizeMoviesData(fetchedMoviesData));
+    const movies = await moviesSvc.getAll();
+    setMovies(normalizeMoviesData(movies));
+
     setIsLoading(false);
   }, []);
 
