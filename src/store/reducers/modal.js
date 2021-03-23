@@ -3,7 +3,8 @@ import { modalType } from 'components/Modal/Modal';
 
 const initialState = {
   currentModal: modalType.none,
-  isModalShown: false
+  isModalShown: false,
+  movieId: undefined
 }
 
 export default (state = initialState, action) => {
@@ -11,14 +12,16 @@ export default (state = initialState, action) => {
     case OPEN_MODAL: {
       return {
         isModalShown: true,
-        currentModal: action.payload.currentModal
+        currentModal: action.payload.currentModal,
+        movieId: action.payload.movieId
       }
     }
 
     case CLOSE_MODAL: {
       return {
         isModalShown: false,
-        currentModal: modalType.none
+        currentModal: modalType.none,
+        movieId: undefined
       }
     }
 

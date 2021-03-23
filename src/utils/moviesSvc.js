@@ -9,7 +9,11 @@ const call = (path, options = {}) => {
   return new Promise(async (resolve) => {
     await fetch(`${base}${path}`, mergedOptions)
       .then(res => res.json())
-      .then(json => resolve(json));
+      .then(json => resolve(json))
+      .catch(e => {
+        console.log(e);
+        resolve();
+      });
   });
 }
 

@@ -21,9 +21,9 @@ const CardFooter = ({ title, subtitle, label, id, openModal }) => {
       <CardLabel text={label} />
 
       <Row className={styles.Actions}>
-        <Button onClick={() => openModal(modalType.delete)} text='Delete' theme={buttonThemes.dismiss} />
+        <Button onClick={() => openModal(modalType.delete, id)} text='Delete' theme={buttonThemes.dismiss} />
         <Button
-          onClick={() => openModal(modalType.edit)}
+          onClick={() => openModal(modalType.edit, id)}
           text='Edit'
           theme={buttonThemes.confirm}
           propStyles={{ marginLeft: '20px' }} />

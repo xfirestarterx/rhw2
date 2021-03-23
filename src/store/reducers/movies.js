@@ -1,4 +1,4 @@
-import { SET_MOVIES, SET_IS_LOADING } from 'store/actionTypes';
+import { SET_MOVIES, SET_IS_LOADING, DELETE_MOVIE } from 'store/actionTypes';
 
 const initialState = {
   movies: [],
@@ -11,6 +11,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         movies: action.payload.movies
+      }
+    }
+
+    case DELETE_MOVIE: {
+      return {
+        ...state,
+        movies: state.movies.filter(movie => movie.id !== action.payload.id)
       }
     }
 
