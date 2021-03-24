@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styles from './MainContent.styl';
 import CardsList from '../CardsList/CardsList';

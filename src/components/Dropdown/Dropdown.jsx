@@ -26,7 +26,7 @@ const styles = {
   })
 }
 
-const Dropdown = ({ settings: { optionsList, width } }) => {
+const Dropdown = ({ settings: { optionsList, width, onChange = null } }) => {
 
   if (width) {
     styles.container = (provided) => ({
@@ -35,7 +35,7 @@ const Dropdown = ({ settings: { optionsList, width } }) => {
     });
   }
 
-  return <Select styles={styles} options={optionsList} />;
+  return <Select styles={styles} options={optionsList} onChange={(data) => onChange(data)} />;
 }
 
 Dropdown.propTypes = {
@@ -44,7 +44,8 @@ Dropdown.propTypes = {
       label: PropTypes.string.isRequired,
       value: PropTypes.any.isRequired
     })),
-    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    onChange: PropTypes.func
   })
 }
 

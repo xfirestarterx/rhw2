@@ -14,6 +14,13 @@ export const closeModal = () => ({
   type: actionTypes.CLOSE_MODAL
 });
 
+export const sortMovies = (sortOrder) => ({
+  type: actionTypes.SORT_MOVIES,
+  payload: {
+    sortOrder
+  }
+});
+
 const setMovies = (movies) => ({
   type: actionTypes.SET_MOVIES,
   payload: {

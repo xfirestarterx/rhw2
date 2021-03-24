@@ -1,4 +1,5 @@
-import { SET_MOVIES, SET_IS_LOADING, DELETE_MOVIE } from 'store/actionTypes';
+import { SET_MOVIES, SET_IS_LOADING, DELETE_MOVIE, SORT_MOVIES } from 'store/actionTypes';
+import sortOrder from 'enums/sortOrder';
 
 const initialState = {
   movies: [],
@@ -7,6 +8,16 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case SORT_MOVIES: {
+      return {
+        ...state,
+        movies:
+          action.payload.sortOrder.value === sortOrder.title ?
+            [...state.movies.sort((a, b) => a.title.localeCompare(b.title))] :
+            [...state.movies.sort((a, b) => b.label.localeCompare(a.label))]
+      }
+    }
+
     case SET_MOVIES: {
       return {
         ...state,
