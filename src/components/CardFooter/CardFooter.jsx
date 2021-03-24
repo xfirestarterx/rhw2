@@ -11,12 +11,13 @@ import Button, { buttonThemes } from '../Button/Button';
 import { modalType } from '../Modal/Modal';
 import { Link } from 'react-router-dom';
 
-const CardFooter = ({ title, subtitle, label, id, openModal }) => {
+const CardFooter = ({ title, subtitle, label, id, openModal, rating }) => {
   return (
     <div className={styles.CardFooter}>
       <Link className={styles.Link} to={`/movie/${id}`}>
         <CardTitle text={title} />
         <CardSubtitle text={subtitle} />
+        <p>★ {rating}</p>
       </Link>
       <CardLabel text={label} />
 
@@ -36,6 +37,7 @@ CardFooter.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
   label: PropTypes.string,
+  rating: PropTypes.string,
   deleteHandler: PropTypes.func,
   editHandler: PropTypes.func
 };

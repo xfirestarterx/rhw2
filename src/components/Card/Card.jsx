@@ -5,7 +5,7 @@ import CardImage from '../CardImage/CardImage';
 import CardFooter from '../CardFooter/CardFooter';
 import { Link } from 'react-router-dom';
 
-const Card = ({ img, title, subtitle, label, id }) => {
+const Card = ({ img, title, subtitle, label, id, rating }) => {
   return (
     <div className={styles.Card}>
       <Link to={`/movie/${id}`}>
@@ -15,7 +15,8 @@ const Card = ({ img, title, subtitle, label, id }) => {
         title={title}
         subtitle={subtitle}
         label={label}
-        id={id} />
+        id={id}
+        rating={rating} />
     </div>
   );
 };
@@ -25,6 +26,7 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
   label: PropTypes.string,
+  rating: PropTypes.string
 };
 
 export default Card;

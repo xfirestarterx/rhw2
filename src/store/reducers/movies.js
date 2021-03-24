@@ -6,15 +6,21 @@ const initialState = {
   isLoading: false
 }
 
+const sortMap = {
+  [sortOrder.title]: 'title',
+  [sortOrder.year]: 'label',
+  [sortOrder.rating]: 'rating'
+}
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case SORT_MOVIES: {
+      const sortBy = action.payload.sortOrder.value;
+      const mappedSortBy = sortMap[sortBy];
+
       return {
         ...state,
-        movies:
-          action.payload.sortOrder.value === sortOrder.title ?
-            [...state.movies.sort((a, b) => a.title.localeCompare(b.title))] :
-            [...state.movies.sort((a, b) => b.label.localeCompare(a.label))]
+        movies: [...state.movies.sort((a, b) => b[mappedSortBy].localeCompare(a[mappedSortBy]))]
       }
     }
 

@@ -1,6 +1,7 @@
 const sortOrder = {
   title: 'title',
-  year: 'year'
+  year: 'year',
+  rating: 'rating'
 }
 
 export default sortOrder;

@@ -24,8 +24,12 @@ const dropDownOptions = {
       value: sortOrder.year
     },
     {
-      label: 'title asc',
+      label: 'title desc',
       value: sortOrder.title
+    },
+    {
+      label: 'rating desc',
+      value: sortOrder.rating
     },
   ]
 };
