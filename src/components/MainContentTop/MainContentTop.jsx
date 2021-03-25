@@ -7,13 +7,16 @@ import LabeledDropdown from '../LabeledDropdown/LabeledDropdown';
 import Row from '../Row/Row';
 import Column from '../Column/Column';
 import sortOrder from 'enums/sortOrder';
+import filterTerms from 'enums/filterTerms';
 
 const filterItems = [
-  { id: 1, title: 'all', isActive: true },
-  { id: 2, title: 'documentary' },
-  { id: 3, title: 'comedy' },
-  { id: 4, title: 'horror' },
-  { id: 5, title: 'crime' }
+  { title: filterTerms.all, isActive: true },
+  { title: filterTerms.action },
+  { title: filterTerms.thriller },
+  { title: filterTerms.adventure },
+  { title: filterTerms.romance },
+  { title: filterTerms.war },
+  { title: filterTerms.comedy },
 ];
 
 const dropDownOptions = {

@@ -4,3 +4,4 @@ export const SET_MOVIES = 'SET_MOVIES';
 export const DELETE_MOVIE = 'DELETE_MOVIE';
 export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const SORT_MOVIES = 'SORT_MOVIES';
+export const FILTER_MOVIES = 'FILTER_MOVIES';

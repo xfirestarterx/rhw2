@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { filterMovies } from 'store/actions';
 import PropTypes from 'prop-types';
 import styles from './TabbedFilter.styl';
 import TabItem from '../TabItem/TabItem';
 
-const TabbedFilter = ({ items = [] }) => {
+const TabbedFilter = ({ items = [], filterMovies }) => {
   if (!items?.length) return null;
+
+  items.map((item, i) => ({...item.id = i}));
 
   const [itemsList, setItemsList] = useState(items);
 
@@ -18,9 +22,14 @@ const TabbedFilter = ({ items = [] }) => {
     setItemsList(updatedList);
   }
 
+  const handleClick = (id, title) => {
+    setActiveTab(id);
+    filterMovies(title);
+  }
+
   return (
     <div className={styles.TabbedFilter}>
-      {itemsList.map(({ id, title, isActive }) => <TabItem onClick={setActiveTab} key={id} title={title} isActive={isActive} id={id} />)}
+      {itemsList.map(({ title, isActive }, i) => <TabItem onClick={handleClick} key={i} title={title} isActive={isActive} id={i} />)}
     </div>
   );
 };
@@ -28,11 +37,10 @@ const TabbedFilter = ({ items = [] }) => {
 TabbedFilter.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       isActive: PropTypes.bool
     })
   )
 };
 
-export default TabbedFilter;
+export default connect(null, { filterMovies })(TabbedFilter);

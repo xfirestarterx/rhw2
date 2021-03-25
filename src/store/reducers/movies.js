@@ -1,5 +1,6 @@
-import { SET_MOVIES, SET_IS_LOADING, DELETE_MOVIE, SORT_MOVIES } from 'store/actionTypes';
+import { SET_MOVIES, SET_IS_LOADING, DELETE_MOVIE, SORT_MOVIES, FILTER_MOVIES } from 'store/actionTypes';
 import sortOrder from 'enums/sortOrder';
+import filterTerms from 'enums/filterTerms';
 
 const initialState = {
   movies: [],
@@ -12,8 +13,24 @@ const sortMap = {
   [sortOrder.rating]: 'rating'
 }
 
+let allMovies = [];
+
+const updateAllMovies = (movies) => {
+  allMovies = movies;
+}
+
 export default (state = initialState, action) => {
   switch (action.type) {
+    case FILTER_MOVIES: {
+      return {
+        ...state,
+        movies:
+          action.payload.filterTerm === filterTerms.all ?
+            allMovies :
+            allMovies.filter(({ subtitle }) => subtitle.includes(action.payload.filterTerm))
+      }
+    }
+
     case SORT_MOVIES: {
       const sortBy = action.payload.sortOrder.value;
       const mappedSortBy = sortMap[sortBy];
@@ -25,6 +42,8 @@ export default (state = initialState, action) => {
     }
 
     case SET_MOVIES: {
+      updateAllMovies(action.payload.movies);
+
       return {
         ...state,
         movies: action.payload.movies
@@ -32,9 +51,12 @@ export default (state = initialState, action) => {
     }
 
     case DELETE_MOVIE: {
+      const movies = state.movies.filter(movie => movie.id !== action.payload.id);
+      updateAllMovies(movies);
+
       return {
         ...state,
-        movies: state.movies.filter(movie => movie.id !== action.payload.id)
+        movies
       }
     }
 

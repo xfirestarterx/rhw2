@@ -21,6 +21,13 @@ export const sortMovies = (sortOrder) => ({
   }
 });
 
+export const filterMovies = (filterTerm) => ({
+  type: actionTypes.FILTER_MOVIES,
+  payload: {
+    filterTerm
+  }
+});
+
 const setMovies = (movies) => ({
   type: actionTypes.SET_MOVIES,
   payload: {

@@ -6,7 +6,7 @@ const TabItem = ({ id, title, isActive = false, onClick = null }) => {
   return (
     <div
       className={`${styles.TabItem} ${isActive ? styles.TabItemActive : ''}`}
-      onClick={() => { typeof onClick === 'function' ? onClick(id) : void 0} }
+      onClick={() => { typeof onClick === 'function' ? onClick(id, title) : void 0} }
     >
       {title}
     </div>
