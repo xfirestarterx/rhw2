@@ -42,6 +42,34 @@ export const setMoviesThunk = () => {
   }
 }
 
+const addMovie = movie => ({
+  type: actionTypes.ADD_MOVIE,
+  payload: {
+    movie
+  }
+});
+
+export const addMovieThunk = movie => {
+  return async (dispatch) => {
+    await moviesSvc.add(movie);
+    dispatch(addMovie(movie));
+  }
+}
+
+const editMovie = movie => ({
+  type: actionTypes.EDIT_MOVIE,
+  payload: {
+    movie
+  }
+});
+
+export const editMovieThunk = movie => {
+  return async (dispatch) => {
+    await moviesSvc.update(movie);
+    dispatch(editMovie(movie));
+  }
+}
+
 const deleteMovie = id => ({
   type: actionTypes.DELETE_MOVIE,
   payload: {

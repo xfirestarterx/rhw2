@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 
+const noop = () => {}
+
 const styles = {
   control: (provided) => ({
     ...provided,
@@ -26,7 +28,7 @@ const styles = {
   })
 }
 
-const Dropdown = ({ settings: { optionsList, width, onChange = null } }) => {
+const Dropdown = ({ settings: { optionsList, width, onChange = noop, isMulti = false, mapToStateName, value } }) => {
 
   if (width) {
     styles.container = (provided) => ({
@@ -35,7 +37,7 @@ const Dropdown = ({ settings: { optionsList, width, onChange = null } }) => {
     });
   }
 
-  return <Select styles={styles} options={optionsList} onChange={(data) => onChange(data)} />;
+  return <Select value={value} isMulti={isMulti} styles={styles} options={optionsList} onChange={(value, meta) => onChange(value, meta, mapToStateName)} />;
 }
 
 Dropdown.propTypes = {
@@ -45,7 +47,9 @@ Dropdown.propTypes = {
       value: PropTypes.any.isRequired
     })),
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    isMulti: PropTypes.bool,
+    mapToStateName: PropTypes.string
   })
 }
 

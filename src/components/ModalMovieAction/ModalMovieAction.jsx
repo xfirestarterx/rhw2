@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FormLabel from '../FormLabel/FormLabel';
 import FormRow, { flowAxisType } from '../FormRow/FormRow';
 import Modal, { modalType } from '../Modal/Modal';
@@ -6,16 +6,9 @@ import TextField from '../TextField/TextField';
 import GenericInput from '../GenericInput/GenericInput';
 import Button, { buttonThemes } from '../Button/Button';
 import Dropdown from '../Dropdown/Dropdown';
+import filterTerms from 'enums/filterTerms';
 
-const getInputId = (name) => `modal-add-input-${name}`;
-
-const inputs = {
-  title: getInputId('title'),
-  date: getInputId('date'),
-  movieUrl: getInputId('movie-url'),
-  overview: getInputId('overview'),
-  runtime: getInputId('runtime')
-}
+const getInputId = (name) => `modal-input-${name}`;
 
 const genres = [
   {
@@ -23,62 +16,105 @@ const genres = [
     label: 'Select genre'
   },
   {
-    value: 'action & adventure',
-    label: 'Action & Adventure'
+    value: filterTerms.action,
+    label: 'Action'
   },
   {
-    value: 'music',
-    label: 'Music'
+    value: filterTerms.adventure,
+    label: 'Adventure'
+  },
+  {
+    value: filterTerms.comedy,
+    label: 'Comedy'
+  },
+  {
+    value: filterTerms.drama,
+    label: 'Drama'
+  },
+  {
+    value: filterTerms.fantasy,
+    label: 'Fantasy'
+  },
+  {
+    value: filterTerms.romance,
+    label: 'Romance'
+  },
+  {
+    value: filterTerms.thriller,
+    label: 'Thriller'
+  },
+  {
+    value: filterTerms.war,
+    label: 'War'
   }
 ];
 
+const inputs = {
+  title: getInputId('title'),
+  release_date: getInputId('date'),
+  poster_path: getInputId('img'),
+  runtime: getInputId('runtime')
+}
+
+const initialState = {
+  title: '',
+  posterPath: '',
+  runtime: '',
+  genre: [],
+  date: ''
+}
+
 const ModalMovieAction = ({ currentModal }) => {
-  const title = currentModal === modalType.add ? 'Add movie' : 'Edit movie';
+  const [state, setState] = useState(initialState);
+  const reset = () => setState(initialState);
+  const onChange = (val, e, inputName) => {
+    setState({
+      ...state,
+      [inputName]: val
+    });
+  }
+
+  const modalTitle = currentModal === modalType.add ? 'Add movie' : 'Edit movie';
 
   const movieIdRow = (
     <FormRow flowAxis={flowAxisType.y}>
       <FormLabel text='movie id' />
-      <p style={{margin: 0}}>MO32820TH</p>
+      <p style={{ margin: 0 }}>MO32820TH</p>
     </FormRow>
   );
 
   return (
-    <Modal title={title}>
-      { (currentModal === modalType.edit) && movieIdRow }
+    <Modal title={modalTitle}>
+      { (currentModal === modalType.edit) && movieIdRow}
 
       <FormRow flowAxis={flowAxisType.y}>
         <FormLabel attrFor={inputs.title} text='title' />
-        <TextField id={inputs.title} placeholder='Add title' />
+        <TextField val={state.title} onChange={onChange} id={inputs.title} placeholder='Add title' mapToStateName='title' />
       </FormRow>
 
       <FormRow flowAxis={flowAxisType.y}>
-        <FormLabel attrFor={inputs.date} text='release date' />
-        <GenericInput type='date' id={inputs.date} />
+        <FormLabel attrFor={inputs.release_date} text='release date' />
+        <GenericInput val={state.date} onChange={onChange} type='date' id={inputs.date} mapToStateName='date' />
       </FormRow>
 
       <FormRow flowAxis={flowAxisType.y}>
-        <FormLabel attrFor={inputs.movieUrl} text='movie url' />
-        <TextField id={inputs.movieUrl} placeholder='Movie url here' />
+        <FormLabel attrFor={inputs.poster_path} text='poster path' />
+        <TextField val={state.posterPath} onChange={onChange} id={inputs.poster_path} placeholder='Poster path here' mapToStateName='posterPath' />
       </FormRow>
 
       <FormRow flowAxis={flowAxisType.y}>
         <FormLabel text='genre' />
-        <Dropdown settings={{optionsList: genres, width: '100%'}} />
-      </FormRow>
-
-      <FormRow flowAxis={flowAxisType.y}>
-        <FormLabel attrFor={inputs.overview} text='overview' />
-        <TextField id={inputs.overview} placeholder='Overview here' />
+        <Dropdown settings={{ optionsList: genres, width: '100%', isMulti: true, onChange, mapToStateName: 'genre', value: state.genre }} />
       </FormRow>
 
       <FormRow flowAxis={flowAxisType.y}>
         <FormLabel attrFor={inputs.runtime} text='runtime' />
-        <TextField id={inputs.runtime} placeholder='Runtime here' />
+        <TextField val={state.runtime} onChange={onChange} id={inputs.runtime} placeholder='Runtime here' mapToStateName='runtime' />
       </FormRow>
 
       <FormRow justifyContent='End'>
-        <Button theme={buttonThemes.dismiss} text='reset' propStyles={{maxWidth: '100px'}} />
-        <Button theme={buttonThemes.confirm} text='submit' propStyles={{maxWidth: '100px', marginLeft: '20px'}} />
+        <Button onClick={reset} theme={buttonThemes.dismiss} text='reset' propStyles={{ maxWidth: '100px' }} />
+        <Button theme={buttonThemes.confirm} text='submit' propStyles={{ maxWidth: '100px', marginLeft: '20px' }} />
       </FormRow>
     </Modal>
   );

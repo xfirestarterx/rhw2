@@ -1,4 +1,4 @@
-import { SET_MOVIES, SET_IS_LOADING, DELETE_MOVIE, SORT_MOVIES, FILTER_MOVIES } from 'store/actionTypes';
+import { SET_MOVIES, SET_IS_LOADING, DELETE_MOVIE, SORT_MOVIES, FILTER_MOVIES, ADD_MOVIE, EDIT_MOVIE } from 'store/actionTypes';
 import sortOrder from 'enums/sortOrder';
 import filterTerms from 'enums/filterTerms';
 
@@ -48,6 +48,14 @@ export default (state = initialState, action) => {
         ...state,
         movies: action.payload.movies
       }
+    }
+
+    case ADD_MOVIE: {
+
+    }
+
+    case EDIT_MOVIE: {
+      
     }
 
     case DELETE_MOVIE: {
