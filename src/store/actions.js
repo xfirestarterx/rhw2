@@ -52,7 +52,7 @@ const addMovie = movie => ({
 export const addMovieThunk = movie => {
   return async (dispatch) => {
     await moviesSvc.add(movie);
-    dispatch(addMovie(movie));
+    dispatch(addMovie(normalizeMoviesData([movie])));
   }
 }
 

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { addMovieThunk, editMovieThunk, closeModal } from 'store/actions';
 import FormLabel from '../FormLabel/FormLabel';
 import FormRow, { flowAxisType } from '../FormRow/FormRow';
 import Modal, { modalType } from '../Modal/Modal';
@@ -56,15 +58,24 @@ const inputs = {
   runtime: getInputId('runtime')
 }
 
-const initialState = {
-  title: '',
-  posterPath: '',
-  runtime: '',
-  genre: [],
-  date: ''
+const prepareData = state => {
+  return {
+    ...state,
+    genres: state.genres.map(({value}) => value),
+    overview: 'Lorem',
+    runtime: Number(state.runtime),
+  }
 }
 
-const ModalMovieAction = ({ currentModal }) => {
+const initialState = {
+  title: '',
+  poster_path: 'https://via.placeholder.com/440x550.png?text=Pulp+Fiction',
+  runtime: '',
+  genres: [],
+  release_date: ''
+}
+
+const ModalMovieAction = ({ currentModal, addMovieThunk, editMovieThunk, closeModal }) => {
   const [state, setState] = useState(initialState);
   const reset = () => setState(initialState);
   const onChange = (val, e, inputName) => {
@@ -75,6 +86,7 @@ const ModalMovieAction = ({ currentModal }) => {
   }
 
   const modalTitle = currentModal === modalType.add ? 'Add movie' : 'Edit movie';
+  const confirmHandler = currentModal === modalType.add ? (movie) => { addMovieThunk(movie); closeModal() } : editMovieThunk;
 
   const movieIdRow = (
     <FormRow flowAxis={flowAxisType.y}>
@@ -94,17 +106,17 @@ const ModalMovieAction = ({ currentModal }) => {
 
       <FormRow flowAxis={flowAxisType.y}>
         <FormLabel attrFor={inputs.release_date} text='release date' />
-        <GenericInput val={state.date} onChange={onChange} type='date' id={inputs.date} mapToStateName='date' />
+        <GenericInput val={state.release_date} onChange={onChange} type='date' id={inputs.date} mapToStateName='release_date' />
       </FormRow>
 
       <FormRow flowAxis={flowAxisType.y}>
         <FormLabel attrFor={inputs.poster_path} text='poster path' />
-        <TextField val={state.posterPath} onChange={onChange} id={inputs.poster_path} placeholder='Poster path here' mapToStateName='posterPath' />
+        <TextField val={state.poster_path} onChange={onChange} id={inputs.poster_path} placeholder='Poster path here' mapToStateName='poster_path' />
       </FormRow>
 
       <FormRow flowAxis={flowAxisType.y}>
         <FormLabel text='genre' />
-        <Dropdown settings={{ optionsList: genres, width: '100%', isMulti: true, onChange, mapToStateName: 'genre', value: state.genre }} />
+        <Dropdown settings={{ optionsList: genres, width: '100%', isMulti: true, onChange, mapToStateName: 'genres', value: state.genres }} />
       </FormRow>
 
       <FormRow flowAxis={flowAxisType.y}>
@@ -114,10 +126,10 @@ const ModalMovieAction = ({ currentModal }) => {
 
       <FormRow justifyContent='End'>
         <Button onClick={reset} theme={buttonThemes.dismiss} text='reset' propStyles={{ maxWidth: '100px' }} />
-        <Button theme={buttonThemes.confirm} text='submit' propStyles={{ maxWidth: '100px', marginLeft: '20px' }} />
+        <Button onClick={() => confirmHandler(prepareData(state))} theme={buttonThemes.confirm} text='submit' propStyles={{ maxWidth: '100px', marginLeft: '20px' }} />
       </FormRow>
     </Modal>
   );
 };
 
-export default ModalMovieAction;
+export default connect(null, { addMovieThunk, editMovieThunk, closeModal })(ModalMovieAction);

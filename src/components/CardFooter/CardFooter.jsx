@@ -17,7 +17,7 @@ const CardFooter = ({ title, subtitle, label, id, openModal, rating }) => {
       <Link className={styles.Link} to={`/movie/${id}`}>
         <CardTitle text={title} />
         <CardSubtitle text={subtitle} />
-        <p>★ {rating}</p>
+        <p>★ {rating === 'undefined' ? 'No votes yet' : rating}</p>
       </Link>
       <CardLabel text={label} />
 

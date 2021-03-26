@@ -1,6 +1,7 @@
 import { SET_MOVIES, SET_IS_LOADING, DELETE_MOVIE, SORT_MOVIES, FILTER_MOVIES, ADD_MOVIE, EDIT_MOVIE } from 'store/actionTypes';
 import sortOrder from 'enums/sortOrder';
 import filterTerms from 'enums/filterTerms';
+import getRandomNum from 'utils/getRandomNum';
 
 const initialState = {
   movies: [],
@@ -51,11 +52,18 @@ export default (state = initialState, action) => {
     }
 
     case ADD_MOVIE: {
+      const movie = action.payload.movie;
+      movie[0].id = getRandomNum(10000, 100000);
+      updateAllMovies([...movie, ...allMovies]);
 
+      return {
+        ...state,
+        movies: allMovies
+      }
     }
 
     case EDIT_MOVIE: {
-      
+
     }
 
     case DELETE_MOVIE: {
