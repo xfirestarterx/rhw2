@@ -13,7 +13,7 @@ const ModalsWrapper = ({ isModalShown, currentModal, movieId }) => {
       return <ModalMovieAction currentModal={currentModal}/>;
 
     case modalType.edit:
-      return <ModalMovieAction currentModal={currentModal} />;
+      return <ModalMovieAction movieId={movieId} currentModal={currentModal} />;
 
     case modalType.delete:
       return <ModalDeleteMovie movieId={movieId} />;

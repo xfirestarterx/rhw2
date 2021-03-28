@@ -66,7 +66,7 @@ const editMovie = movie => ({
 export const editMovieThunk = movie => {
   return async (dispatch) => {
     await moviesSvc.update(movie);
-    dispatch(editMovie(movie));
+    dispatch(editMovie(normalizeMoviesData([movie])));
   }
 }
 

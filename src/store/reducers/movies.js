@@ -63,7 +63,14 @@ export default (state = initialState, action) => {
     }
 
     case EDIT_MOVIE: {
+      const movie = action.payload.movie[0];
+      const filteredMovies = state.movies.filter(mov => mov.id !== movie.id);
+      filteredMovies.unshift(movie);
 
+      return {
+        ...state,
+        movies: filteredMovies
+      };
     }
 
     case DELETE_MOVIE: {
