@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import styles from './MovieHeader.styl';
 import { useParams } from 'react-router';
-import MainContext from '../MainContext/MainContext';
 import Row from '../Row/Row';
 import Column from '../Column/Column';
 import Logo from '../Logo/Logo';
@@ -10,11 +10,10 @@ import { Link } from 'react-router-dom';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import bgImg from '../../img/header-bg';
 
-const MovieHeader = () => {
+const MovieHeader = ({ movies }) => {
   const params = useParams();
   const id = Number(params?.id);
-  const { moviesList } = useContext(MainContext);
-  const currentMovie = moviesList.filter(item => item.id === id)[0];
+  const currentMovie = movies.filter(item => item.id === id)[0];
 
   return (
     <div className={styles.MovieHeader}>
@@ -28,11 +27,12 @@ const MovieHeader = () => {
             <TextField placeholder='search' />
           </Column>
         </Row>
-
-        <MovieDetails movie={currentMovie} />
+        { currentMovie ? <MovieDetails movie={currentMovie} /> : <p className={styles.Loading}>loading...</p> }
       </div>
     </div>
   );
 };
 
-export default MovieHeader;
+const mapStateToProps = ({ movies }) => movies;
+
+export default connect(mapStateToProps)(MovieHeader);

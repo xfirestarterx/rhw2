@@ -1,37 +1,43 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { sortMovies } from 'store/actions';
 import styles from './MainContentTop.styl';
 import TabbedFilter from '../TabbedFilter/TabbedFilter';
 import LabeledDropdown from '../LabeledDropdown/LabeledDropdown';
 import Row from '../Row/Row';
 import Column from '../Column/Column';
+import sortOrder from 'enums/sortOrder';
+import filterTerms from 'enums/filterTerms';
 
 const filterItems = [
-  { id: 1, title: 'all', isActive: true },
-  { id: 2, title: 'documentary' },
-  { id: 3, title: 'comedy' },
-  { id: 4, title: 'horror' },
-  { id: 5, title: 'crime' }
+  { title: filterTerms.all, isActive: true },
+  { title: filterTerms.action },
+  { title: filterTerms.thriller },
+  { title: filterTerms.adventure },
+  { title: filterTerms.romance },
+  { title: filterTerms.war },
+  { title: filterTerms.comedy },
 ];
 
 const dropDownOptions = {
   labelText: 'sort by',
   options: [
     {
-      label: 'Option 1',
-      value: 'value 1'
+      label: 'year desc',
+      value: sortOrder.year
     },
     {
-      label: 'Option 2',
-      value: 'value 2'
+      label: 'title desc',
+      value: sortOrder.title
     },
     {
-      label: 'Option 3',
-      value: 'value 3'
-    }
+      label: 'rating desc',
+      value: sortOrder.rating
+    },
   ]
 };
 
-const MainContentTop = () => {
+const MainContentTop = ({ sortMovies }) => {
   return (
     <div className={styles.FiltersSection}>
       <Row>
@@ -40,11 +46,11 @@ const MainContentTop = () => {
         </Column>
 
         <Column isRightAligned={true}>
-          <LabeledDropdown labelText={dropDownOptions.labelText} optionsList={dropDownOptions.options} width={140} />
+          <LabeledDropdown labelText={dropDownOptions.labelText} optionsList={dropDownOptions.options} width={140} onChange={sortMovies} />
         </Column>
       </Row>
     </div>
   );
 };
 
-export default MainContentTop;
+export default connect(null, { sortMovies })(MainContentTop);

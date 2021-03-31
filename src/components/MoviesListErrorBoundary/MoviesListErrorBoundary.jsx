@@ -3,7 +3,7 @@ import styles from './MoviesListErrorBoundary.styl';
 import PropTypes from 'prop-types';
 
 const MoviesListErrorBoundary = ({ children, items, isLoading }) => {
-  const ErrorMsg = () => <div className={styles.ErrorMsg}>Something went wrong</div>;
+  const ErrorMsg = () => <div className={styles.ErrorMsg}>Nothing found</div>;
   const isError = !isLoading && (!items || !items.length);
 
   return <>{isError ? <ErrorMsg /> : children}</>;

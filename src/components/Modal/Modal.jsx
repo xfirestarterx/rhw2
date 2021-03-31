@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styles from './Modal.styl';
 import PropTypes from 'prop-types';
-import MainContext from '../MainContext/MainContext';
+import { connect } from 'react-redux';
+import { closeModal } from 'store/actions';
 
 export const modalType = {
   add: 'add',
@@ -10,9 +11,7 @@ export const modalType = {
   none: 'none'
 }
 
-const Modal = ({ title, children }) => {
-  const { closeModal } = useContext(MainContext);
-
+const Modal = ({ title, children, closeModal }) => {
   return (
     <div className={styles.ModalWrap}>
       <div onClick={closeModal} className={styles.Overlay} />
@@ -30,5 +29,5 @@ Modal.propTypes = {
   children: PropTypes.any
 }
 
-export default Modal;
+export default connect(null, { closeModal })(Modal);
 
