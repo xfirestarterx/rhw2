@@ -8,9 +8,9 @@ import TabItem from '../TabItem/TabItem';
 const TabbedFilter = ({ items = [], filterMovies }) => {
   if (!items?.length) return null;
 
-  items.map((item, i) => ({...item.id = i}));
+  const initialState = items.map((item, i) => ({...item, id: i}));
 
-  const [itemsList, setItemsList] = useState(items);
+  const [itemsList, setItemsList] = useState(initialState);
 
   const setActiveTab = (id) => {
     const updatedList = itemsList.map(item => {
