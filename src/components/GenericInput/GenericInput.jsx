@@ -1,33 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const noop = () => { };
-
 const GenericInput = ({
+    fieldProps = {},
     type = 'text',
-    val,
     placeholder = '',
     className = '',
     id = '',
-    onChange = noop,
-    mapToStateName
   }) => {
   return <input
-    {...(val || val === '' ? { value: val } : {})}
+    {...fieldProps}
     type={type}
     placeholder={placeholder}
     className={className}
-    id={id}
-    onChange={(e) => onChange(e.target.value, e, mapToStateName)} />;
+    id={id} />;
 }
 
 GenericInput.propTypes = {
+  fieldProps: PropTypes.object,
   type: PropTypes.string,
-  val: PropTypes.string,
   placeholder: PropTypes.string,
   className: PropTypes.string,
-  id: PropTypes.string,
-  mapToStateName: PropTypes.string
+  id: PropTypes.string
 }
 
 export default GenericInput;

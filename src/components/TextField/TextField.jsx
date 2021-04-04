@@ -2,12 +2,9 @@ import React from 'react';
 import styles from './TextField.styl';
 import PropTypes from 'prop-types';
 
-const noop = () => { };
-
-const TextField = ({ placeholder, id, val, onChange = noop, mapToStateName }) => {
+const TextField = ({ placeholder, id, fieldProps = {} }) => {
   return <input
-    {...(val || val === '' ? { value: val } : {})}
-    onChange={(e) => onChange(e.target.value, e, mapToStateName)}
+    {...fieldProps}
     id={id}
     className={styles.TextField}
     type='text'
@@ -15,11 +12,11 @@ const TextField = ({ placeholder, id, val, onChange = noop, mapToStateName }) =>
 }
 
 TextField.propTypes = {
+  fieldProps: PropTypes.object,
   placeholder: PropTypes.string,
   id: PropTypes.string,
-  val: PropTypes.any,
-  onChange: PropTypes.func,
-  mapToStateName: PropTypes.string
+  value: PropTypes.any,
+  onChange: PropTypes.func
 };
 
 export default TextField;

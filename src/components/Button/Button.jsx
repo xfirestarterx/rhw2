@@ -8,9 +8,10 @@ export const buttonThemes = {
   default: 'Default'
 }
 
-const Button = ({ text = 'Default text', onClick = null, theme = buttonThemes.default, propStyles }) => {
+const Button = ({ text = 'Default text', type='button', onClick = null, theme = buttonThemes.default, propStyles }) => {
   return (
     <button
+      type={type}
       className={`${styles.Button} ${styles[theme] ? styles[theme] : ''}`}
       onClick={onClick}
       style={propStyles}
@@ -21,6 +22,7 @@ const Button = ({ text = 'Default text', onClick = null, theme = buttonThemes.de
 
 Button.propTypes = {
   text: PropTypes.string,
+  type: PropTypes.string,
   onClick: PropTypes.func,
   theme: PropTypes.oneOf([buttonThemes.confirm, buttonThemes.dismiss, buttonThemes.default])
 };
