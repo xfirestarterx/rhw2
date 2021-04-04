@@ -8,6 +8,8 @@ import TextField from '../TextField/TextField';
 import GenericInput from '../GenericInput/GenericInput';
 import Button, { buttonThemes } from '../Button/Button';
 import { Formik, Form, useFormik, Field } from 'formik';
+import validationSchema from 'utils/validationSchema';
+import ErrorMsg from 'components/ErrorMsg/ErrorMsg';
 
 import prepareDataToSend from 'utils/prepareDataToSend';
 import prepareDataToEdit from 'utils/prepareDataToEdit';
@@ -51,10 +53,13 @@ const ModalMovieAction = ({
 
   const formik = useFormik({
     initialValues: initialState,
+    validationSchema,
     onSubmit: (movie) => {
       confirmHandler(movie);
     }
   });
+
+  const { errors } = formik; 
 
   let modalTitle;
   let movieIdRow;
@@ -84,16 +89,19 @@ const ModalMovieAction = ({
           <FormRow flowAxis={flowAxisType.y}>
             <FormLabel attrFor={inputs.title} text='title' />
             <TextField fieldProps={formik.getFieldProps('title')} id={inputs.title} placeholder='Add title' />
+            <ErrorMsg msg={errors.title} />
           </FormRow>
 
           <FormRow flowAxis={flowAxisType.y}>
             <FormLabel attrFor={inputs.release_date} text='release date' />
             <GenericInput fieldProps={formik.getFieldProps('release_date')} type='date' id={inputs.date} />
+            <ErrorMsg msg={errors.release_date} />
           </FormRow>
 
           <FormRow flowAxis={flowAxisType.y}>
             <FormLabel attrFor={inputs.poster_path} text='poster path' />
             <TextField fieldProps={formik.getFieldProps('poster_path')} id={inputs.poster_path} placeholder='Poster path here' />
+            <ErrorMsg msg={errors.poster_path} />
           </FormRow>
 
           <FormRow flowAxis={flowAxisType.y}>
@@ -101,11 +109,13 @@ const ModalMovieAction = ({
             <Field multiple={true} as='select' name='genres' {...formik.getFieldProps('genres')} >
               {genres.map(({ value, label }, i) => <option value={value} key={i}>{label}</option>)}
             </Field>
+            <ErrorMsg msg={errors.genres} />
           </FormRow>
 
           <FormRow flowAxis={flowAxisType.y}>
             <FormLabel attrFor={inputs.runtime} text='runtime' />
             <TextField fieldProps={formik.getFieldProps('runtime')} id={inputs.runtime} placeholder='Runtime here' mapToStateName='runtime' />
+            <ErrorMsg msg={errors.runtime} />
           </FormRow>
 
           <FormRow justifyContent='End'>
