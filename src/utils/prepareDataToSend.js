@@ -1,7 +1,7 @@
 export default (data) => {
   return {
     ...data,
-    genres: data.genres.map(({value}) => value),
+    genres: data.genres,
     overview: 'Lorem',
     runtime: Number(data.runtime),
   }
