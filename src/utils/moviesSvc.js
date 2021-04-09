@@ -17,6 +17,11 @@ const call = (path, options = {}) => {
   });
 }
 
+export const getByTerms = async (terms) => {
+  const params = new URLSearchParams(terms);
+  return await call(`/movies?${params}`).then(({data}) => data);
+}
+
 export const getAll = async () => await call('/movies').then(({data}) => data);
 
 export const add = async (movie) => await call('/movies', {

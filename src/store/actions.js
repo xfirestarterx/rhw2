@@ -42,6 +42,24 @@ export const setMoviesThunk = () => {
   }
 }
 
+export const setMoviesByTermsThunk = ({
+  sortBy = 'title',
+  sortOrder = 'asc',
+  search = '',
+  searchBy = 'title'
+}) => {
+  const terms = { sortBy, sortOrder, search, searchBy };
+
+  return async (dispatch) => {
+    dispatch(setIsLoading(true));
+
+    const movies = await moviesSvc.getByTerms(terms);
+    dispatch(setMovies(normalizeMoviesData(movies)));
+
+    dispatch(setIsLoading(false));
+  }
+}
+
 const addMovie = movie => ({
   type: actionTypes.ADD_MOVIE,
   payload: {

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { closeModal, setMoviesThunk, setIsLoading } from 'store/actions';
+import React from 'react';
+import { closeModal } from 'store/actions';
 import { connect } from 'react-redux';
 import styles from './App.styl';
 import Header from '../Header/Header';
@@ -12,14 +12,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 const MainContentWithWrapper = WithWrapper(MainContent);
 
-const App = ({ closeModal, isModalShown, setMoviesThunk, setIsLoading }) => {
+const App = ({ closeModal, isModalShown }) => {
   const escapeHandler = e => e.which === 27 && isModalShown ? closeModal() : void 0;
-
-  useEffect(async () => {
-    setIsLoading(true);
-    await setMoviesThunk();
-    setIsLoading(false);
-  }, []);
 
   return (
     <div onKeyUp={escapeHandler} className={styles.App}>
@@ -39,4 +33,4 @@ const App = ({ closeModal, isModalShown, setMoviesThunk, setIsLoading }) => {
 
 const mapStateToProps = ({ modal, movies }) => ({ modal, movies });
 
-export default connect(mapStateToProps, { closeModal, setMoviesThunk, setIsLoading })(App);
+export default connect(mapStateToProps, { closeModal })(App);
