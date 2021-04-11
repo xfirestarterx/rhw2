@@ -1,6 +1,6 @@
 const sortOrder = {
   title: 'title',
-  year: 'year',
+  year: 'release_date',
   rating: 'rating'
 }
 

@@ -1,17 +1,16 @@
-import { SET_MOVIES, SET_IS_LOADING, DELETE_MOVIE, SORT_MOVIES, FILTER_MOVIES, ADD_MOVIE, EDIT_MOVIE } from 'store/actionTypes';
-import sortOrder from 'enums/sortOrder';
-import filterTerms from 'enums/filterTerms';
+import * as actions from 'store/actionTypes';
 import getRandomNum from 'utils/getRandomNum';
 
 const initialState = {
   movies: [],
-  isLoading: false
-}
-
-const sortMap = {
-  [sortOrder.title]: 'title',
-  [sortOrder.year]: 'label',
-  [sortOrder.rating]: 'rating'
+  isLoading: false,
+  params: {
+    sortOrder: 'asc',
+    sortBy: 'title',
+    searchBy: 'title',
+    filter: '',
+    search: '',
+  }
 }
 
 let allMovies = [];
@@ -22,27 +21,19 @@ const updateAllMovies = (movies) => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FILTER_MOVIES: {
+    case actions.UPDATE_REQUEST_PARAMS: {
       return {
         ...state,
-        movies:
-          action.payload.filterTerm === filterTerms.all ?
-            allMovies :
-            allMovies.filter(({ subtitle }) => subtitle.includes(action.payload.filterTerm))
+        params: {
+          ...state.params,
+          sortBy: action.payload.sortBy ?? state.params.sortBy,
+          filter: action.payload.filter ?? state.params.filter,
+          search: action.payload.search ?? state.params.search,
+        }
       }
     }
 
-    case SORT_MOVIES: {
-      const sortBy = action.payload.sortOrder.value;
-      const mappedSortBy = sortMap[sortBy];
-
-      return {
-        ...state,
-        movies: [...state.movies.sort((a, b) => b[mappedSortBy].localeCompare(a[mappedSortBy]))]
-      }
-    }
-
-    case SET_MOVIES: {
+    case actions.SET_MOVIES: {
       updateAllMovies(action.payload.movies);
 
       return {
@@ -51,7 +42,7 @@ export default (state = initialState, action) => {
       }
     }
 
-    case ADD_MOVIE: {
+    case actions.ADD_MOVIE: {
       const movie = action.payload.movie;
       movie[0].id = getRandomNum(10000, 100000);
       updateAllMovies([...movie, ...allMovies]);
@@ -62,7 +53,7 @@ export default (state = initialState, action) => {
       }
     }
 
-    case EDIT_MOVIE: {
+    case actions.EDIT_MOVIE: {
       const movie = action.payload.movie[0];
       const filteredMovies = state.movies.filter(mov => mov.id !== movie.id);
       filteredMovies.unshift(movie);
@@ -73,7 +64,7 @@ export default (state = initialState, action) => {
       };
     }
 
-    case DELETE_MOVIE: {
+    case actions.DELETE_MOVIE: {
       const movies = state.movies.filter(movie => movie.id !== action.payload.id);
       updateAllMovies(movies);
 
@@ -83,7 +74,7 @@ export default (state = initialState, action) => {
       }
     }
 
-    case SET_IS_LOADING: {
+    case actions.SET_IS_LOADING: {
       return {
         ...state,
         isLoading: action.payload.isLoading

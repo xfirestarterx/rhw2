@@ -14,20 +14,6 @@ export const closeModal = () => ({
   type: actionTypes.CLOSE_MODAL
 });
 
-export const sortMovies = (sortOrder) => ({
-  type: actionTypes.SORT_MOVIES,
-  payload: {
-    sortOrder
-  }
-});
-
-export const filterMovies = (filterTerm) => ({
-  type: actionTypes.FILTER_MOVIES,
-  payload: {
-    filterTerm
-  }
-});
-
 const setMovies = (movies) => ({
   type: actionTypes.SET_MOVIES,
   payload: {
@@ -35,25 +21,24 @@ const setMovies = (movies) => ({
   }
 });
 
-export const setMoviesThunk = () => {
-  return async (dispatch) => {
-    const movies = await moviesSvc.getAll();
-    dispatch(setMovies(normalizeMoviesData(movies)));
+const updateRequestState = (terms) => ({
+  type: actionTypes.UPDATE_REQUEST_PARAMS,
+  payload: terms
+});
+
+export const setMoviesByTerms = (terms, requestParamsState) => {
+  const joinedTerms = {
+    ...requestParamsState,
+    ...terms
   }
-}
-
-export const setMoviesByTermsThunk = ({
-  sortBy = 'title',
-  sortOrder = 'asc',
-  search = '',
-  searchBy = 'title'
-}) => {
-  const terms = { sortBy, sortOrder, search, searchBy };
-
+  
   return async (dispatch) => {
+    dispatch(updateRequestState(terms));
+    if (!joinedTerms.search) return;
+
     dispatch(setIsLoading(true));
 
-    const movies = await moviesSvc.getByTerms(terms);
+    const movies = await moviesSvc.getByTerms(joinedTerms);
     dispatch(setMovies(normalizeMoviesData(movies)));
 
     dispatch(setIsLoading(false));

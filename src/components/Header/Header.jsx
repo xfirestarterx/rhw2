@@ -7,20 +7,20 @@ import HeaderTop from '../HeaderTop/HeaderTop';
 import FormRow from '../FormRow/FormRow';
 import TextField from '../TextField/TextField';
 import Button, { buttonThemes } from '../Button/Button';
-import { setMoviesByTermsThunk } from 'store/actions';
+import { setMoviesByTerms } from 'store/actions';
 import img from '../../img/header-bg';
 import { Formik, Form, useFormik } from 'formik';
 import * as Yup from 'yup';
 import ErrorMsg from 'components/ErrorMsg/ErrorMsg';
 
-const Header = ({ setMoviesByTermsThunk }) => {
+const Header = ({ setMoviesByTerms, requestParamsState }) => {
   const formik = useFormik({
     initialValues: { inputSearch: '' },
     validationSchema: Yup.object({
       inputSearch: Yup.string().required('Required'),
     }),
     onSubmit: ({inputSearch}) => {
-      setMoviesByTermsThunk({search: inputSearch});
+      setMoviesByTerms({search: inputSearch}, requestParamsState);
     }
   });
 
@@ -49,4 +49,6 @@ const Header = ({ setMoviesByTermsThunk }) => {
   )
 };
 
-export default connect(null, { setMoviesByTermsThunk })(Header);
+const mapStateToProps = ({movies}) => ({ requestParamsState: movies.params });
+
+export default connect(mapStateToProps, { setMoviesByTerms })(Header);

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { filterMovies } from 'store/actions';
+import { setMoviesByTerms } from 'store/actions';
 import PropTypes from 'prop-types';
 import styles from './TabbedFilter.styl';
 import TabItem from '../TabItem/TabItem';
 
-const TabbedFilter = ({ items = [], filterMovies }) => {
+const TabbedFilter = ({ items = [], setMoviesByTerms, requestParamsState }) => {
   if (!items?.length) return null;
 
   const initialState = items.map((item, i) => ({...item, id: i}));
@@ -24,7 +24,8 @@ const TabbedFilter = ({ items = [], filterMovies }) => {
 
   const handleClick = (id, title) => {
     setActiveTab(id);
-    filterMovies(title);
+    const filter = title === 'All' ? '' : title;
+    setMoviesByTerms({ filter }, requestParamsState);
   }
 
   return (
@@ -33,6 +34,8 @@ const TabbedFilter = ({ items = [], filterMovies }) => {
     </div>
   );
 };
+
+const mapStateToProps = ({ movies }) => ({ requestParamsState: movies.params });
 
 TabbedFilter.propTypes = {
   items: PropTypes.arrayOf(
@@ -43,4 +46,4 @@ TabbedFilter.propTypes = {
   )
 };
 
-export default connect(null, { filterMovies })(TabbedFilter);
+export default connect(mapStateToProps, { setMoviesByTerms })(TabbedFilter);
