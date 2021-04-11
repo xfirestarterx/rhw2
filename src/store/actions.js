@@ -1,6 +1,8 @@
 import * as actionTypes from './actionTypes';
 import * as moviesSvc from 'utils/moviesSvc';
 import normalizeMoviesData from 'utils/normalizeMoviesData';
+import setQueryParams from 'utils/setQueryParams';
+import store from 'store/store';
 
 export const openModal = (modalType, movieId) => ({
   type: actionTypes.OPEN_MODAL,
@@ -26,7 +28,8 @@ const updateRequestState = (terms) => ({
   payload: terms
 });
 
-export const setMoviesByTerms = (terms, requestParamsState) => {
+export const setMoviesByTerms = (terms) => {
+  const requestParamsState = store.getState().movies.params;
   const joinedTerms = {
     ...requestParamsState,
     ...terms
@@ -35,6 +38,8 @@ export const setMoviesByTerms = (terms, requestParamsState) => {
   return async (dispatch) => {
     dispatch(updateRequestState(terms));
     if (!joinedTerms.search) return;
+
+    setQueryParams(joinedTerms);
 
     dispatch(setIsLoading(true));
 

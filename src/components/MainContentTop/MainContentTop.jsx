@@ -33,11 +33,14 @@ const dropDownOptions = {
   ]
 };
 
-const MainContentTop = ({ requestParamsState, setMoviesByTerms }) => {
+const MainContentTop = ({ setMoviesByTerms, dropdownVal }) => {
   const handleDropdownChange = ({ value }) => {
-    setMoviesByTerms({ sortBy: value }, requestParamsState);
+    setMoviesByTerms({ sortBy: value });
   }
-
+  const currentDropdownValObject = {
+    label: dropdownVal === 'release_date' ? 'Year' : dropdownVal,
+    value: dropdownVal
+  }
   return (
     <div className={styles.FiltersSection}>
       <Row>
@@ -46,13 +49,13 @@ const MainContentTop = ({ requestParamsState, setMoviesByTerms }) => {
         </Column>
 
         <Column isRightAligned={true}>
-          <LabeledDropdown labelText={dropDownOptions.labelText} optionsList={dropDownOptions.options} width={140} onChange={handleDropdownChange} />
+          <LabeledDropdown labelText={dropDownOptions.labelText} optionsList={dropDownOptions.options} value={currentDropdownValObject} width={140} onChange={handleDropdownChange} />
         </Column>
       </Row>
     </div>
   );
 };
 
-const mapStateToProps = ({ movies }) => ({ requestParamsState: movies.params });
+const mapStateToProps = ({ movies }) => ({ dropdownVal: movies.params.sortBy });
 
 export default connect(mapStateToProps, { setMoviesByTerms })(MainContentTop);

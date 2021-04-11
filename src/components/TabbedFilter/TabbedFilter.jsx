@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { setMoviesByTerms } from 'store/actions';
 import PropTypes from 'prop-types';
 import styles from './TabbedFilter.styl';
 import TabItem from '../TabItem/TabItem';
 
-const TabbedFilter = ({ items = [], setMoviesByTerms, requestParamsState }) => {
+const TabbedFilter = ({ items = [], setMoviesByTerms, currentTab }) => {
   if (!items?.length) return null;
 
   const initialState = items.map((item, i) => ({...item, id: i}));
@@ -25,8 +25,14 @@ const TabbedFilter = ({ items = [], setMoviesByTerms, requestParamsState }) => {
   const handleClick = (id, title) => {
     setActiveTab(id);
     const filter = title === 'All' ? '' : title;
-    setMoviesByTerms({ filter }, requestParamsState);
+    setMoviesByTerms({ filter });
   }
+
+  useEffect(() => {
+    const id = itemsList.find(el => el.title.toLowerCase() === currentTab.toLowerCase())?.id;
+    
+    if (id) setActiveTab(id);
+  }, [currentTab]);
 
   return (
     <div className={styles.TabbedFilter}>
@@ -34,8 +40,6 @@ const TabbedFilter = ({ items = [], setMoviesByTerms, requestParamsState }) => {
     </div>
   );
 };
-
-const mapStateToProps = ({ movies }) => ({ requestParamsState: movies.params });
 
 TabbedFilter.propTypes = {
   items: PropTypes.arrayOf(
@@ -45,5 +49,7 @@ TabbedFilter.propTypes = {
     })
   )
 };
+
+const mapStateToProps = ({ movies }) => ({ currentTab: movies.params.filter });
 
 export default connect(mapStateToProps, { setMoviesByTerms })(TabbedFilter);

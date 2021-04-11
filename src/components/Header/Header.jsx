@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Formik, Form, useFormik } from 'formik';
+import * as Yup from 'yup';
 import styles from './Header.styl';
 import HeaderPrimaryContent from '../HeaderPrimaryContent/HeaderPrimaryContent';
 import PageTitle from '../PageTitle/PageTitle';
@@ -9,20 +11,23 @@ import TextField from '../TextField/TextField';
 import Button, { buttonThemes } from '../Button/Button';
 import { setMoviesByTerms } from 'store/actions';
 import img from '../../img/header-bg';
-import { Formik, Form, useFormik } from 'formik';
-import * as Yup from 'yup';
 import ErrorMsg from 'components/ErrorMsg/ErrorMsg';
 
-const Header = ({ setMoviesByTerms, requestParamsState }) => {
+const Header = ({ setMoviesByTerms, inputVal }) => {
+
   const formik = useFormik({
     initialValues: { inputSearch: '' },
     validationSchema: Yup.object({
       inputSearch: Yup.string().required('Required'),
     }),
     onSubmit: ({inputSearch}) => {
-      setMoviesByTerms({search: inputSearch}, requestParamsState);
+      setMoviesByTerms({search: inputSearch});
     }
   });
+
+  useEffect(() => {
+    formik.setFieldValue('inputSearch', inputVal);
+  }, [inputVal]);
 
   return (
     <div className={styles.Header}>
@@ -49,6 +54,6 @@ const Header = ({ setMoviesByTerms, requestParamsState }) => {
   )
 };
 
-const mapStateToProps = ({movies}) => ({ requestParamsState: movies.params });
+const mapStateToProps = ({ movies }) => ({ inputVal: movies.params.search });
 
 export default connect(mapStateToProps, { setMoviesByTerms })(Header);

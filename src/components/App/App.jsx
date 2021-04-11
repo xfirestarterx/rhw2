@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { closeModal } from 'store/actions';
 import { connect } from 'react-redux';
+import { setMoviesByTerms } from 'store/actions';
 import styles from './App.styl';
 import Header from '../Header/Header';
 import MovieHeader from '../MovieHeader/MovieHeader';
@@ -12,8 +13,14 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 const MainContentWithWrapper = WithWrapper(MainContent);
 
-const App = ({ closeModal, isModalShown }) => {
+const App = ({ closeModal, isModalShown, setMoviesByTerms }) => {
   const escapeHandler = e => e.which === 27 && isModalShown ? closeModal() : void 0;
+  
+  useEffect(() => {
+    const url = new URL(window.location);
+    const searchParams = Object.fromEntries(url.searchParams);
+    setMoviesByTerms(searchParams);
+  }, []);
 
   return (
     <div onKeyUp={escapeHandler} className={styles.App}>
@@ -31,6 +38,6 @@ const App = ({ closeModal, isModalShown }) => {
   );
 };
 
-const mapStateToProps = ({ modal, movies }) => ({ modal, movies });
+const mapStateToProps = ({ modal }) => ({ modal });
 
-export default connect(mapStateToProps, { closeModal })(App);
+export default connect(mapStateToProps, { closeModal, setMoviesByTerms })(App);
