@@ -10,6 +10,7 @@ import Footer from '../Footer/Footer';
 import WithWrapper from '../WithWrapper/WithWrapper';
 import ModalsWrapper from '../ModalsWrapper/ModalsWrapper';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import NotFoundPage from 'components/NotFoundPage/NotFoundPage';
 
 const MainContentWithWrapper = WithWrapper(MainContent);
 
@@ -22,17 +23,27 @@ const App = ({ closeModal, isModalShown, setMoviesByTerms }) => {
     setMoviesByTerms(searchParams);
   }, []);
 
+  const pageBottom = (
+    <>
+      <MainContentWithWrapper />
+      <Footer />
+      <ModalsWrapper />
+    </>
+  );
   return (
     <div onKeyUp={escapeHandler} className={styles.App}>
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' component={Header} />
-          <Route path='/movie/:id' component={MovieHeader} />
+          <Route exact path='/'>
+            <Header />
+            { pageBottom }
+          </Route>
+          <Route path='/movie/:id'>
+            <MovieHeader />
+            { pageBottom }
+          </Route>
+          <Route path="*" component={NotFoundPage} />
         </Switch>
-
-        <MainContentWithWrapper />
-        <Footer />
-        <ModalsWrapper />
       </BrowserRouter>
     </div>
   );
