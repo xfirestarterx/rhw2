@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styles from './MovieHeader.styl';
 import { useParams } from 'react-router';
+import { setMovieDetailsThunk } from 'store/actions';
 import Row from '../Row/Row';
 import Column from '../Column/Column';
 import Logo from '../Logo/Logo';
@@ -10,10 +11,13 @@ import { Link } from 'react-router-dom';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import bgImg from '../../img/header-bg';
 
-const MovieHeader = ({ movies }) => {
+const MovieHeader = ({ currentMovie, setMovieDetailsThunk }) => {
   const params = useParams();
   const id = Number(params?.id);
-  const currentMovie = movies.filter(item => item.id === id)[0];
+
+  useEffect(() => {
+    setMovieDetailsThunk(id);
+  }, []);
 
   return (
     <div className={styles.MovieHeader}>
@@ -33,6 +37,6 @@ const MovieHeader = ({ movies }) => {
   );
 };
 
-const mapStateToProps = ({ movies }) => movies;
+const mapStateToProps = ({ movies }) => ({ currentMovie: movies.movieDetails });
 
-export default connect(mapStateToProps)(MovieHeader);
+export default connect(mapStateToProps, { setMovieDetailsThunk })(MovieHeader);

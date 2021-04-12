@@ -50,6 +50,18 @@ export const setMoviesByTerms = (terms) => {
   }
 }
 
+const setMovieDetails = (movie) => ({
+  type: actionTypes.GET_MOVIE_DETAILS,
+  payload: movie
+});
+
+export const setMovieDetailsThunk = (id) => {
+  return async (dispatch) => {
+    const movie = await moviesSvc.get(id);
+    dispatch(setMovieDetails(normalizeMoviesData([movie])));
+  }
+}
+
 const addMovie = movie => ({
   type: actionTypes.ADD_MOVIE,
   payload: {

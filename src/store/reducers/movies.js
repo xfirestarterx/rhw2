@@ -4,6 +4,7 @@ import getRandomNum from 'utils/getRandomNum';
 const initialState = {
   movies: [],
   isLoading: false,
+  movieDetails: undefined,
   params: {
     sortOrder: 'asc',
     sortBy: 'title',
@@ -21,6 +22,13 @@ const updateAllMovies = (movies) => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case actions.GET_MOVIE_DETAILS: {
+      return {
+        ...state,
+        movieDetails: action.payload[0]
+      }
+    }
+
     case actions.UPDATE_REQUEST_PARAMS: {
       return {
         ...state,
