@@ -7,17 +7,16 @@ import MoviesListErrorBoundary from '../MoviesListErrorBoundary/MoviesListErrorB
 import MainContentTop from '../MainContentTop/MainContentTop';
 
 const MainContent = ({ movies, isLoading }) => {
+  const count = 0;
+
   return (
     <div className={styles.MainContent}>
       <MainContentTop />
 
-      <FoundMoviesMessage count={39} text='movies found' />
+      { Boolean(count) && <FoundMoviesMessage count={count} text='movies found' /> }
 
       { isLoading && <p>Loading...</p> }
-
-      <MoviesListErrorBoundary isLoading={isLoading} items={movies}>
-        <CardsList items={movies} />
-      </MoviesListErrorBoundary>
+      <CardsList defaultMessage="No movie found" items={movies} />
     </div>
   );
 };

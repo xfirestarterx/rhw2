@@ -3,11 +3,11 @@ import styles from './LabeledDropdown.styl';
 import PropTypes from 'prop-types';
 import Dropdown from '../Dropdown/Dropdown';
 
-const LabeledDropdown = ({ labelText, optionsList, width, onChange }) => {
+const LabeledDropdown = ({ labelText, optionsList, width, onChange, value }) => {
   return (
     <div className={styles.LabeledDropdown}>
       { labelText && <div className={styles.Label}>{labelText}</div> }
-      <Dropdown settings={{optionsList, width, onChange}} />
+      <Dropdown settings={{optionsList, width, onChange, value}} />
     </div>
   );
 };

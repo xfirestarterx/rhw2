@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styles from './MovieHeader.styl';
 import { useParams } from 'react-router';
+import { Formik, Form, useFormik } from 'formik';
+import * as Yup from 'yup';
+import { setMovieDetailsThunk, setMoviesByTerms } from 'store/actions';
 import Row from '../Row/Row';
 import Column from '../Column/Column';
 import Logo from '../Logo/Logo';
@@ -10,10 +13,29 @@ import { Link } from 'react-router-dom';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import bgImg from '../../img/header-bg';
 
-const MovieHeader = ({ movies }) => {
+const MovieHeader = ({ currentMovie, setMovieDetailsThunk, setMoviesByTerms, inputVal }) => {
   const params = useParams();
   const id = Number(params?.id);
-  const currentMovie = movies.filter(item => item.id === id)[0];
+
+  useEffect(() => {
+    if (!currentMovie) {
+      setMovieDetailsThunk(id);
+    }
+  }, []);
+
+  const formik = useFormik({
+    initialValues: { inputSearch: '' },
+    validationSchema: Yup.object({
+      inputSearch: Yup.string().required('Required'),
+    }),
+    onSubmit: ({inputSearch}) => {
+      setMoviesByTerms({search: inputSearch});
+    }
+  });
+
+  useEffect(() => {
+    formik.setFieldValue('inputSearch', inputVal);
+  }, [inputVal]);
 
   return (
     <div className={styles.MovieHeader}>
@@ -24,7 +46,11 @@ const MovieHeader = ({ movies }) => {
             <Link to='/'><Logo /></Link>
           </Column>
           <Column isRightAligned={true}>
-            <TextField placeholder='search' />
+            <Formik>
+              <Form onSubmit={formik.handleSubmit}>
+                <TextField fieldProps={formik.getFieldProps('inputSearch')} id="inputSearch" placeholder='search' />
+              </Form>
+            </Formik>
           </Column>
         </Row>
         { currentMovie ? <MovieDetails movie={currentMovie} /> : <p className={styles.Loading}>loading...</p> }
@@ -33,6 +59,6 @@ const MovieHeader = ({ movies }) => {
   );
 };
 
-const mapStateToProps = ({ movies }) => movies;
+const mapStateToProps = ({ movies }) => ({ currentMovie: movies.movieDetails, inputVal: movies.params.search });
 
-export default connect(mapStateToProps)(MovieHeader);
+export default connect(mapStateToProps, { setMovieDetailsThunk, setMoviesByTerms })(MovieHeader);
