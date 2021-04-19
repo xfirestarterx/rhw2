@@ -13,7 +13,7 @@ export const modalType = {
 
 const Modal = ({ title, children, closeModal }) => {
   return (
-    <div className={styles.ModalWrap}>
+    <div data-testid="modal" className={styles.ModalWrap}>
       <div onClick={closeModal} className={styles.Overlay} />
       <div className={styles.ModalContent}>
         <div onClick={closeModal} className={styles.ModalClose} />
