@@ -12,4 +12,12 @@ module.exports = {
     "\\.(jpg|jpeg|png|gif|webp|svg)$": '<rootDir>/fileTransformer.js',
   },
   moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node', 'png', 'jpg']
+  // coverageThreshold: {
+  //   global: {
+  //     branches: 70,
+  //     functions: 70,
+  //     lines: 70,
+  //     statements: 70
+  //   }
+  // },
 }

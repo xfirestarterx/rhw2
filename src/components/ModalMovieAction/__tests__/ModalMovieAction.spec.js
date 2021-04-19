@@ -52,4 +52,14 @@ describe('<ModalMovieAction /> spec', () => {
     userEvent.click(screen.getByText('submit'));
     expect(modal).toEqual(expectedState);
   });
+
+  it('resets form on reset button click', () => {
+    const { container } = renderComponent();
+    const titleInput = getByName(container, 'title');
+
+    userEvent.type(titleInput, 'Some title');
+    userEvent.click(screen.getByText('reset'));
+
+    expect(titleInput.value).toEqual('');
+  });
 });
