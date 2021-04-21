@@ -88,8 +88,8 @@ const ModalMovieAction = ({
         <Form onSubmit={formik.handleSubmit}>
           <FormRow flowAxis={flowAxisType.y}>
             <FormLabel attrFor={inputs.title} text='title' />
-            <TextField fieldProps={formik.getFieldProps('title')} id={inputs.title} placeholder='Add title' />
-            <ErrorMsg msg={errors.title} />
+            <TextField fieldProps={formik.getFieldProps('title')} id={inputs.title} placeholder='Add title' dataTestId={inputs.title} />
+            <ErrorMsg dataTestId='title-input-error' msg={errors.title} />
           </FormRow>
 
           <FormRow flowAxis={flowAxisType.y}>
