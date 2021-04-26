@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setMoviesByTerms } from 'store/actions';
+import { setMoviesByTerms } from '../../store/actions';
 import styles from './MainContentTop.styl';
 import TabbedFilter from '../TabbedFilter/TabbedFilter';
 import LabeledDropdown from '../LabeledDropdown/LabeledDropdown';
 import Row from '../Row/Row';
 import Column from '../Column/Column';
-import sortOrder from 'enums/sortOrder';
-import filterTerms from 'enums/filterTerms';
+import sortOrder from '../../enums/sortOrder';
+import filterTerms from '../../enums/filterTerms';
 
 const filterItems = [
   { title: filterTerms.all, isActive: true },

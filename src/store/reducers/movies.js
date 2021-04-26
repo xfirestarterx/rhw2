@@ -1,5 +1,5 @@
-import * as actions from 'store/actionTypes';
-import getRandomNum from 'utils/getRandomNum';
+import * as actions from '../actionTypes';
+import getRandomNum from '../../utils/getRandomNum';
 
 const initialState = {
   movies: [],

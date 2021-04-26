@@ -1,5 +1,5 @@
-import { OPEN_MODAL, CLOSE_MODAL } from 'store/actionTypes';
-import { modalType } from 'components/Modal/Modal';
+import { OPEN_MODAL, CLOSE_MODAL } from '../actionTypes';
+import { modalType } from '../../components/Modal/Modal';
 
 const initialState = {
   currentModal: modalType.none,

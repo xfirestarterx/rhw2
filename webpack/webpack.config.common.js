@@ -1,24 +1,24 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
+
+const isDevMod = process.env.NODE_ENV === 'development';
 
 module.exports = {
+  mode: process.env.NODE_ENV,
+
+  output: {
+    filename: 'js/[name].js',
+    path: path.resolve('./public'),
+  },
+
   resolve: {
     extensions: ['.js', '.jsx', '.styl', '.gif', '.png', '.jpg', '.jpeg', '.svg'],
-    modules: [path.resolve(__dirname, 'src'), 'node_modules']
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
   },
-  entry: './src/main.js',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
-    publicPath: '/'
-  },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: 'src/index.html'
-    })
-  ],
+
   module: {
     rules: [
       {
@@ -64,5 +64,5 @@ module.exports = {
         type: 'asset/resource',
       },
     ]
-  }
+  },
 };

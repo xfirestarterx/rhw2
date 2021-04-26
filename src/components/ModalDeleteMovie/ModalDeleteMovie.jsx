@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { deleteMovieThunk, closeModal } from 'store/actions';
+import { deleteMovieThunk, closeModal } from '../../store/actions';
 import Button, { buttonThemes } from '../Button/Button';
 import FormRow from '../FormRow/FormRow';
 import Modal from '../Modal/Modal';

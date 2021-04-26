@@ -4,7 +4,7 @@ import styles from './MovieHeader.styl';
 import { useParams } from 'react-router';
 import { Formik, Form, useFormik } from 'formik';
 import * as Yup from 'yup';
-import { setMovieDetailsThunk, setMoviesByTerms } from 'store/actions';
+import { setMovieDetailsThunk, setMoviesByTerms } from '../../store/actions';
 import Row from '../Row/Row';
 import Column from '../Column/Column';
 import Logo from '../Logo/Logo';

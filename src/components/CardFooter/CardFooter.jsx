@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './CardFooter.styl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { openModal } from 'store/actions';
+import { openModal } from '../../store/actions';
 import CardTitle from '../CardTitle/CardTitle';
 import CardLabel from '../CardLabel/CardLabel';
 import CardSubtitle from '../CardSubtitle/CardSubtitle';
