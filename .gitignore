@@ -23,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 /dist
+/public
 /.idea
 /.vscode
 /**/__snapshots__/

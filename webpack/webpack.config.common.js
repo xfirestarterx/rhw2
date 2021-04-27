@@ -1,7 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
-
-const isDevMod = process.env.NODE_ENV === 'development';
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -34,7 +32,7 @@ module.exports = {
       {
         test: /\.styl$/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -65,4 +63,9 @@ module.exports = {
       },
     ]
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+    }),
+  ]
 };
