@@ -2,8 +2,9 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import Root from './Root';
+import configureStore from '../src/store/store';
 
-function renderHTML(html) {
+function renderHTML(html, preloadedState) {
   return `
       <!doctype html>
       <html>
@@ -14,6 +15,9 @@ function renderHTML(html) {
         </head>
         <body>
           <div id="root">${html}</div>
+          <script>
+            window.PRELOADED_STATE = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+          </script>
           <script src="/js/main.js"></script>
         </body>
       </html>
@@ -21,6 +25,8 @@ function renderHTML(html) {
 }
 
 export default function serverRenderer() {
+  const store = configureStore();
+
   return (req, res) => {
     // This context object contains the results of the render
     const context = {};
@@ -30,10 +36,12 @@ export default function serverRenderer() {
         context={context}
         location={req.url}
         Router={StaticRouter}
+        store={store}
       />
     );
 
     const htmlString = renderToString(root);
+    const preloadedState = store.getState();
 
     // context.url will contain the URL to redirect to if a <Redirect> was used
     if (context.url) {
@@ -44,6 +52,6 @@ export default function serverRenderer() {
       return;
     }
 
-    res.send(renderHTML(htmlString));
+    res.send(renderHTML(htmlString, preloadedState));
   };
 }

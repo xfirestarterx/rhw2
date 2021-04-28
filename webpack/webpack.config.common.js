@@ -1,6 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const isDevMod = process.env.NODE_ENV === 'development';
+
 module.exports = {
   mode: process.env.NODE_ENV,
 
@@ -8,6 +10,8 @@ module.exports = {
     filename: 'js/[name].js',
     path: path.resolve('./public'),
   },
+
+  devtool: isDevMod && 'inline-source-map',
 
   resolve: {
     extensions: ['.js', '.jsx', '.styl', '.gif', '.png', '.jpg', '.jpeg', '.svg'],

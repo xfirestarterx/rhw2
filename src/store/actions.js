@@ -2,7 +2,7 @@ import * as actionTypes from './actionTypes';
 import * as moviesSvc from '../utils/moviesSvc';
 import normalizeMoviesData from '../utils/normalizeMoviesData';
 import setQueryParams from '../utils/setQueryParams';
-import store from './store';
+import configureStore from './store';
 
 export const openModal = (modalType, movieId) => ({
   type: actionTypes.OPEN_MODAL,
@@ -29,6 +29,7 @@ const updateRequestState = (terms) => ({
 });
 
 export const setMoviesByTerms = (terms) => {
+  const store = configureStore();
   const requestParamsState = store.getState().movies.params;
   const joinedTerms = {
     ...requestParamsState,
