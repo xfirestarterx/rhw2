@@ -1,3 +1,5 @@
+import 'isomorphic-fetch';
+
 const base = `http://localhost:4000`;
 
 const call = (path, options = {}) => {

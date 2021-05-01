@@ -1,8 +1,33 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter, matchPath } from 'react-router-dom';
 import Root from './Root';
 import configureStore from '../src/store/store';
+import HomePage from './pages/HomePage';
+import MoviePage from './pages/MoviePage';
+import { setMovieDetailsThunk, setMoviesByTerms } from './store/actions';
+
+const routes = [
+  {
+    path: '/',
+    component: HomePage,
+    fetchInitialData: (dispatch, query) => {
+      try {
+        const params = Object.fromEntries(new URLSearchParams(query));
+        return dispatch(setMoviesByTerms(params));
+      } catch (e) { }
+    }
+  },
+  {
+    path: '/movie/:id',
+    component: MoviePage,
+    fetchInitialData: (dispatch, id) => {
+      try {
+        return dispatch(setMovieDetailsThunk(id));
+      } catch (e) { }
+    }
+  },
+];
 
 function renderHTML(html, preloadedState) {
   return `
@@ -40,18 +65,27 @@ export default function serverRenderer() {
       />
     );
 
-    const htmlString = renderToString(root);
-    const preloadedState = store.getState();
+    const activeRoute = routes.find(route => matchPath(req.url, route)) || {};
+    const url = req.url;
+    const n = url.lastIndexOf('/');
+    const params = url.substring(n + 1);
+    const promise = activeRoute.fetchInitialData
+      ? activeRoute.fetchInitialData(store.dispatch, params)
+      : Promise.resolve();
 
-    // context.url will contain the URL to redirect to if a <Redirect> was used
-    if (context.url) {
-      res.writeHead(302, {
-        Location: context.url,
-      });
-      res.end();
-      return;
-    }
+    promise.then(() => {
+      const htmlString = renderToString(root);
 
-    res.send(renderHTML(htmlString, preloadedState));
+      if (context.url) {
+        res.writeHead(302, {
+          Location: context.url,
+        });
+        res.end();
+        return;
+      }
+
+      const preloadedState = store.getState();
+      res.send(renderHTML(htmlString, preloadedState));
+    }).catch(() => { });
   };
 }
