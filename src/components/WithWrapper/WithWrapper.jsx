@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './WithWrapper.styl';
 
+// PATTERN: {Higher order component}
 const Wrapper = ({ children }) => <div className={styles.Wrapper}>{children}</div>;
 
 const WithWrapper = (Component) => function WithWrapperComponent(props) {
