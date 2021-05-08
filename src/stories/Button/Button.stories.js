@@ -13,3 +13,13 @@ export const Confirm = Template.bind({});
 Confirm.args = {
   theme: buttonThemes.confirm,
 };
+
+export const Dismiss = Template.bind({});
+Dismiss.args = {
+  theme: buttonThemes.dismiss,
+};
+
+export const Default = Template.bind({});
+Default.args = {
+  theme: buttonThemes.default,
+};
