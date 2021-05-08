@@ -12,6 +12,7 @@ import Button, { buttonThemes } from '../Button/Button';
 import { setMoviesByTerms } from '../../store/actions';
 import img from '../../img/header-bg';
 import ErrorMsg from '../ErrorMsg/ErrorMsg';
+import { getCurrentSearchInputVal } from '../../selectors/index';
 
 const Header = ({ setMoviesByTerms, inputVal }) => {
   const formik = useFormik({
@@ -54,6 +55,6 @@ const Header = ({ setMoviesByTerms, inputVal }) => {
   );
 };
 
-const mapStateToProps = ({ movies }) => ({ inputVal: movies.params.search });
+const mapStateToProps = (state) => ({ inputVal: getCurrentSearchInputVal(state) });
 
 export default connect(mapStateToProps, { setMoviesByTerms })(Header);

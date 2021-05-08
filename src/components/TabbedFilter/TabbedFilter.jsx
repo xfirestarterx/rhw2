@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { setMoviesByTerms } from '../../store/actions';
 import styles from './TabbedFilter.styl';
 import TabItem from '../TabItem/TabItem';
+import { getActiveFilterTab } from '../../selectors/index';
 
 const TabbedFilter = ({ items = [], setMoviesByTerms, currentTab }) => {
   if (!items?.length) return null;
@@ -48,6 +49,6 @@ TabbedFilter.propTypes = {
   ),
 };
 
-const mapStateToProps = ({ movies }) => ({ currentTab: movies.params.filter });
+const mapStateToProps = (state) => ({ currentTab: getActiveFilterTab(state) });
 
 export default connect(mapStateToProps, { setMoviesByTerms })(TabbedFilter);

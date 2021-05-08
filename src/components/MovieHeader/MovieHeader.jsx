@@ -12,6 +12,7 @@ import Logo from '../Logo/Logo';
 import TextField from '../TextField/TextField';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import bgImg from '../../img/header-bg';
+import { getMovieHeaderDetailsState } from '../../selectors/index';
 
 const MovieHeader = ({
   currentMovie, setMovieDetailsThunk, setMoviesByTerms, inputVal,
@@ -61,6 +62,6 @@ const MovieHeader = ({
   );
 };
 
-const mapStateToProps = ({ movies }) => ({ currentMovie: movies.movieDetails, inputVal: movies.params.search });
+const mapStateToProps = (state) => getMovieHeaderDetailsState(state);
 
 export default connect(mapStateToProps, { setMovieDetailsThunk, setMoviesByTerms })(MovieHeader);
