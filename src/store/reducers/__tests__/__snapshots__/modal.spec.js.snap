@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Modal reducer returns the initial state 1`] = `
+exports['Modal reducer returns the initial state 1'] = `
 Object {
   "currentModal": "none",
   "isModalShown": false,

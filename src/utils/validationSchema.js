@@ -18,5 +18,5 @@ export default Yup.object({
     .required('Required'),
 
   release_date: Yup.date()
-    .required('Required')
+    .required('Required'),
 });

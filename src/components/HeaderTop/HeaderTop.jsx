@@ -5,20 +5,18 @@ import Column from '../Column/Column';
 import Row from '../Row/Row';
 import HeaderContent from '../HeaderContent/HeaderContent';
 
-const HeaderTop = ({ }) => {
-  return (
-    <div className={styles.HeaderTop}>
-      <Row>
-        <Column>
-          <Logo />
-        </Column>
+const HeaderTop = ({ }) => (
+  <div className={styles.HeaderTop}>
+    <Row>
+      <Column>
+        <Logo />
+      </Column>
 
-        <Column isRightAligned={true}>
-          <HeaderContent />
-        </Column>
-      </Row>
-    </div>
-  );
-};
+      <Column isRightAligned>
+        <HeaderContent />
+      </Column>
+    </Row>
+  </div>
+);
 
 export default HeaderTop;

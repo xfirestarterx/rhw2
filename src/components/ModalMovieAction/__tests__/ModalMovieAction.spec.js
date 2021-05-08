@@ -4,17 +4,16 @@ import { Provider } from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import ModalMovieAction from '../ModalMovieAction';
 import { modalType } from 'components/Modal/Modal';
+import ModalMovieAction from '../ModalMovieAction';
 
-const renderComponent = () => {
-  return render(
-    <Provider store={store}>
-      <ModalMovieAction
-        currentModal={modalType.add} />
-    </Provider>
-  );
-};
+const renderComponent = () => render(
+  <Provider store={store}>
+    <ModalMovieAction
+      currentModal={modalType.add}
+    />
+  </Provider>,
+);
 
 const getByName = (container, name) => container.querySelector(`[name="${name}"]`);
 const res = { json: jest.fn() };
@@ -41,7 +40,7 @@ describe('<ModalMovieAction /> spec', () => {
     const expectedState = {
       currentModal: modalType.none,
       isModalShown: false,
-      movieId: undefined
+      movieId: undefined,
     };
 
     userEvent.type(getByName(container, 'title'), 'Some title');

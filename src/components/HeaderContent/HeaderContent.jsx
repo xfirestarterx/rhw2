@@ -4,8 +4,6 @@ import { openModal } from '../../store/actions';
 import Button from '../Button/Button';
 import { modalType } from '../Modal/Modal';
 
-const HeaderContent = ({ openModal }) => {
-  return <Button onClick={() => openModal(modalType.add)} text='+ Add movie' />;
-};
+const HeaderContent = ({ openModal }) => <Button onClick={() => openModal(modalType.add)} text="+ Add movie" />;
 
 export default connect(null, { openModal })(HeaderContent);

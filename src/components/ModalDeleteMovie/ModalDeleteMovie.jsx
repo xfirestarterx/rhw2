@@ -9,13 +9,13 @@ const ModalDeleteMovie = ({ movieId, deleteMovieThunk, closeModal }) => {
   const clickHandler = () => {
     deleteMovieThunk(movieId);
     closeModal();
-  }
+  };
 
   return (
-    <Modal title='delete movie'>
+    <Modal title="delete movie">
       <p>Are you sure want to delete movie?</p>
-      <FormRow justifyContent='End'>
-        <Button onClick={clickHandler} theme={buttonThemes.confirm} text='confirm' propStyles={{maxWidth: '200px', marginTop: '20px'}} />
+      <FormRow justifyContent="End">
+        <Button onClick={clickHandler} theme={buttonThemes.confirm} text="confirm" propStyles={{ maxWidth: '200px', marginTop: '20px' }} />
       </FormRow>
     </Modal>
   );

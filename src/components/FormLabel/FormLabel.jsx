@@ -6,7 +6,7 @@ const FormLabel = ({ attrFor, text }) => <label className={styles.FormLabel} htm
 
 FormLabel.propTypes = {
   attrFor: PropTypes.string,
-  text: PropTypes.string
-}
+  text: PropTypes.string,
+};
 
 export default FormLabel;

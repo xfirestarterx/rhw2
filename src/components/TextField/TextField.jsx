@@ -1,16 +1,19 @@
 import React from 'react';
-import styles from './TextField.styl';
 import PropTypes from 'prop-types';
+import styles from './TextField.styl';
 
-const TextField = ({ placeholder, id, fieldProps = {}, dataTestId='' }) => {
-  return <input
+const TextField = ({
+  placeholder, id, fieldProps = {}, dataTestId = '',
+}) => (
+  <input
     {...fieldProps}
     id={id}
     className={styles.TextField}
-    type='text'
+    type="text"
     data-testid={dataTestId}
-    placeholder={placeholder} />
-}
+    placeholder={placeholder}
+  />
+);
 
 TextField.propTypes = {
   dataTestId: PropTypes.string,
@@ -18,7 +21,7 @@ TextField.propTypes = {
   placeholder: PropTypes.string,
   id: PropTypes.string,
   value: PropTypes.any,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 export default TextField;

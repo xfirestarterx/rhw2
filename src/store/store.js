@@ -8,7 +8,7 @@ export default (initialState) => {
   const store = createStore(
     rootReducer,
     initialState,
-    composeEnhancer(applyMiddleware(thunk))
+    composeEnhancer(applyMiddleware(thunk)),
   );
 
   return store;

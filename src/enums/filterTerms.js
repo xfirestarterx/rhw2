@@ -8,7 +8,7 @@ const filterTerms = {
   fantasy: 'Fantasy',
   romance: 'Romance',
   war: 'War',
-  comedy: 'Comedy'
-}
+  comedy: 'Comedy',
+};
 
 export default filterTerms;

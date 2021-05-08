@@ -1,5 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {
+  Formik, Form, useFormik, Field,
+} from 'formik';
 import { addMovieThunk, editMovieThunk, closeModal } from '../../store/actions';
 import FormLabel from '../FormLabel/FormLabel';
 import FormRow, { flowAxisType } from '../FormRow/FormRow';
@@ -7,7 +10,6 @@ import Modal, { modalType } from '../Modal/Modal';
 import TextField from '../TextField/TextField';
 import GenericInput from '../GenericInput/GenericInput';
 import Button, { buttonThemes } from '../Button/Button';
-import { Formik, Form, useFormik, Field } from 'formik';
 import validationSchema from '../../utils/validationSchema';
 import ErrorMsg from '../ErrorMsg/ErrorMsg';
 
@@ -21,16 +23,16 @@ const inputs = {
   title: getInputId('title'),
   release_date: getInputId('date'),
   poster_path: getInputId('img'),
-  runtime: getInputId('runtime')
-}
+  runtime: getInputId('runtime'),
+};
 
 const initialStateAdd = {
   title: '',
   poster_path: 'https://via.placeholder.com/440x550.png?text=Pulp+Fiction',
   runtime: '',
   genres: [],
-  release_date: ''
-}
+  release_date: '',
+};
 
 const ModalMovieAction = ({
   movies,
@@ -38,15 +40,15 @@ const ModalMovieAction = ({
   addMovieThunk,
   editMovieThunk,
   closeModal,
-  movieId
+  movieId,
 }) => {
-  const movieToEdit = movieId ? movies.filter(movie => movie.id === movieId)[0] : null;
+  const movieToEdit = movieId ? movies.filter((movie) => movie.id === movieId)[0] : null;
   const initialState = movieToEdit ? prepareDataToEdit(movieToEdit) : initialStateAdd;
 
   const confirmHandler = (movie) => {
-    currentModal === modalType.add ?
-      addMovieThunk(prepareDataToSend(movie)) :
-      editMovieThunk(prepareDataToSend(movie));
+    currentModal === modalType.add
+      ? addMovieThunk(prepareDataToSend(movie))
+      : editMovieThunk(prepareDataToSend(movie));
 
     closeModal();
   };
@@ -56,10 +58,10 @@ const ModalMovieAction = ({
     validationSchema,
     onSubmit: (movie) => {
       confirmHandler(movie);
-    }
+    },
   });
 
-  const { errors } = formik; 
+  const { errors } = formik;
 
   let modalTitle;
   let movieIdRow;
@@ -72,7 +74,7 @@ const ModalMovieAction = ({
 
     movieIdRow = (
       <FormRow flowAxis={flowAxisType.y}>
-        <FormLabel text='movie id' />
+        <FormLabel text="movie id" />
         <p style={{ margin: 0 }}>{initialState.id}</p>
       </FormRow>
     );
@@ -87,40 +89,40 @@ const ModalMovieAction = ({
       <Formik>
         <Form onSubmit={formik.handleSubmit}>
           <FormRow flowAxis={flowAxisType.y}>
-            <FormLabel attrFor={inputs.title} text='title' />
-            <TextField fieldProps={formik.getFieldProps('title')} id={inputs.title} placeholder='Add title' dataTestId={inputs.title} />
-            <ErrorMsg dataTestId='title-input-error' msg={errors.title} />
+            <FormLabel attrFor={inputs.title} text="title" />
+            <TextField fieldProps={formik.getFieldProps('title')} id={inputs.title} placeholder="Add title" dataTestId={inputs.title} />
+            <ErrorMsg dataTestId="title-input-error" msg={errors.title} />
           </FormRow>
 
           <FormRow flowAxis={flowAxisType.y}>
-            <FormLabel attrFor={inputs.release_date} text='release date' />
-            <GenericInput fieldProps={formik.getFieldProps('release_date')} type='date' id={inputs.date} />
+            <FormLabel attrFor={inputs.release_date} text="release date" />
+            <GenericInput fieldProps={formik.getFieldProps('release_date')} type="date" id={inputs.date} />
             <ErrorMsg msg={errors.release_date} />
           </FormRow>
 
           <FormRow flowAxis={flowAxisType.y}>
-            <FormLabel attrFor={inputs.poster_path} text='poster path' />
-            <TextField fieldProps={formik.getFieldProps('poster_path')} id={inputs.poster_path} placeholder='Poster path here' />
+            <FormLabel attrFor={inputs.poster_path} text="poster path" />
+            <TextField fieldProps={formik.getFieldProps('poster_path')} id={inputs.poster_path} placeholder="Poster path here" />
             <ErrorMsg msg={errors.poster_path} />
           </FormRow>
 
           <FormRow flowAxis={flowAxisType.y}>
-            <FormLabel text='genre' />
-            <Field multiple={true} as='select' name='genres' {...formik.getFieldProps('genres')} >
+            <FormLabel text="genre" />
+            <Field multiple as="select" name="genres" {...formik.getFieldProps('genres')}>
               {genres.map(({ value, label }, i) => <option value={value} key={i}>{label}</option>)}
             </Field>
             <ErrorMsg msg={errors.genres} />
           </FormRow>
 
           <FormRow flowAxis={flowAxisType.y}>
-            <FormLabel attrFor={inputs.runtime} text='runtime' />
-            <TextField fieldProps={formik.getFieldProps('runtime')} id={inputs.runtime} placeholder='Runtime here' mapToStateName='runtime' />
+            <FormLabel attrFor={inputs.runtime} text="runtime" />
+            <TextField fieldProps={formik.getFieldProps('runtime')} id={inputs.runtime} placeholder="Runtime here" mapToStateName="runtime" />
             <ErrorMsg msg={errors.runtime} />
           </FormRow>
 
-          <FormRow justifyContent='End'>
-            <Button onClick={formik.resetForm} type='reset' theme={buttonThemes.dismiss} text='reset' propStyles={{ maxWidth: '100px' }} />
-            <Button type='submit' theme={buttonThemes.confirm} text='submit' propStyles={{ maxWidth: '100px', marginLeft: '20px' }} />
+          <FormRow justifyContent="End">
+            <Button onClick={formik.resetForm} type="reset" theme={buttonThemes.dismiss} text="reset" propStyles={{ maxWidth: '100px' }} />
+            <Button type="submit" theme={buttonThemes.confirm} text="submit" propStyles={{ maxWidth: '100px', marginLeft: '20px' }} />
           </FormRow>
         </Form>
       </Formik>

@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import styles from './MovieHeader.styl';
 import { useParams } from 'react-router';
 import { Formik, Form, useFormik } from 'formik';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
+import styles from './MovieHeader.styl';
 import { setMovieDetailsThunk, setMoviesByTerms } from '../../store/actions';
 import Row from '../Row/Row';
 import Column from '../Column/Column';
 import Logo from '../Logo/Logo';
 import TextField from '../TextField/TextField';
-import { Link } from 'react-router-dom';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import bgImg from '../../img/header-bg';
 
-const MovieHeader = ({ currentMovie, setMovieDetailsThunk, setMoviesByTerms, inputVal }) => {
+const MovieHeader = ({
+  currentMovie, setMovieDetailsThunk, setMoviesByTerms, inputVal,
+}) => {
   const params = useParams();
   const id = Number(params?.id);
 
@@ -28,9 +30,9 @@ const MovieHeader = ({ currentMovie, setMovieDetailsThunk, setMoviesByTerms, inp
     validationSchema: Yup.object({
       inputSearch: Yup.string().required('Required'),
     }),
-    onSubmit: ({inputSearch}) => {
-      setMoviesByTerms({search: inputSearch});
-    }
+    onSubmit: ({ inputSearch }) => {
+      setMoviesByTerms({ search: inputSearch });
+    },
   });
 
   useEffect(() => {
@@ -43,12 +45,12 @@ const MovieHeader = ({ currentMovie, setMovieDetailsThunk, setMoviesByTerms, inp
       <div className={styles.Wrap}>
         <Row className={styles.Top}>
           <Column>
-            <Link to='/'><Logo /></Link>
+            <Link to="/"><Logo /></Link>
           </Column>
-          <Column isRightAligned={true}>
+          <Column isRightAligned>
             <Formik>
               <Form onSubmit={formik.handleSubmit}>
-                <TextField fieldProps={formik.getFieldProps('inputSearch')} id="inputSearch" placeholder='search' />
+                <TextField fieldProps={formik.getFieldProps('inputSearch')} id="inputSearch" placeholder="search" />
               </Form>
             </Formik>
           </Column>
