@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './NotFoundPage.styl';
 import { Link } from 'react-router-dom';
-import Button, { buttonThemes } from 'components/Button/Button';
+import Button, { buttonThemes } from '../Button/Button';
 
-import Footer from 'components/Footer/Footer'
+import Footer from '../Footer/Footer'
 
 const header = <Footer />;
 const NotFoundPage = () => (

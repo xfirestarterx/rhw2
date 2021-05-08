@@ -1,50 +1,24 @@
-import React, { useEffect } from 'react';
-import { closeModal } from 'store/actions';
+import React from 'react';
+import { closeModal, setMoviesByTerms } from '../../store/actions';
 import { connect } from 'react-redux';
-import { setMoviesByTerms } from 'store/actions';
 import styles from './App.styl';
-import Header from '../Header/Header';
-import MovieHeader from '../MovieHeader/MovieHeader';
-import MainContent from '../MainContent/MainContent';
-import Footer from '../Footer/Footer';
-import WithWrapper from '../WithWrapper/WithWrapper';
-import ModalsWrapper from '../ModalsWrapper/ModalsWrapper';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import NotFoundPage from 'components/NotFoundPage/NotFoundPage';
+import { Switch, Route } from 'react-router-dom';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import HomePage from '../../pages/HomePage';
+import MoviePage from '../../pages/MoviePage';
 
-const MainContentWithWrapper = WithWrapper(MainContent);
-
-const App = ({ closeModal, isModalShown, setMoviesByTerms }) => {
+const App = ({Router, location, context, closeModal, isModalShown }) => {
   const escapeHandler = e => e.which === 27 && isModalShown ? closeModal() : void 0;
-  
-  useEffect(() => {
-    const url = new URL(window.location);
-    const searchParams = Object.fromEntries(url.searchParams);
-    setMoviesByTerms(searchParams);
-  }, []);
 
-  const pageBottom = (
-    <>
-      <MainContentWithWrapper />
-      <Footer />
-      <ModalsWrapper />
-    </>
-  );
   return (
     <div onKeyUp={escapeHandler} className={styles.App}>
-      <BrowserRouter>
+      <Router location={location} context={context}>
         <Switch>
-          <Route exact path='/'>
-            <Header />
-            { pageBottom }
-          </Route>
-          <Route path='/movie/:id'>
-            <MovieHeader />
-            { pageBottom }
-          </Route>
+          <Route exact path='/' component={HomePage} />
+          <Route path='/movie/:id' component={MoviePage} />
           <Route path="*" component={NotFoundPage} />
         </Switch>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 };

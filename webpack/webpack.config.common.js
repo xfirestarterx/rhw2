@@ -1,24 +1,26 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const isDevMod = process.env.NODE_ENV === 'development';
 
 module.exports = {
+  mode: process.env.NODE_ENV,
+
+  output: {
+    filename: 'js/[name].js',
+    path: path.resolve('./public'),
+  },
+
+  devtool: isDevMod && 'inline-source-map',
+
   resolve: {
     extensions: ['.js', '.jsx', '.styl', '.gif', '.png', '.jpg', '.jpeg', '.svg'],
-    modules: [path.resolve(__dirname, 'src'), 'node_modules']
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
   },
-  entry: './src/main.js',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
-    publicPath: '/'
-  },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: 'src/index.html'
-    })
-  ],
+
   module: {
     rules: [
       {
@@ -34,7 +36,7 @@ module.exports = {
       {
         test: /\.styl$/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -64,5 +66,10 @@ module.exports = {
         type: 'asset/resource',
       },
     ]
-  }
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+    }),
+  ]
 };

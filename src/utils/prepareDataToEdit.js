@@ -1,4 +1,4 @@
-import genres from 'data/genres';
+import genres from '../data/genres';
 
 export default ({id, img, release_date, subtitle, title, runtime}) => {
   return {

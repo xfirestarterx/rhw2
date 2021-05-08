@@ -1,4 +1,4 @@
-import filterTerms from 'enums/filterTerms';
+import filterTerms from '../enums/filterTerms';
 
 export default [
   {

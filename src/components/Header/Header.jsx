@@ -9,9 +9,9 @@ import HeaderTop from '../HeaderTop/HeaderTop';
 import FormRow from '../FormRow/FormRow';
 import TextField from '../TextField/TextField';
 import Button, { buttonThemes } from '../Button/Button';
-import { setMoviesByTerms } from 'store/actions';
+import { setMoviesByTerms } from '../../store/actions';
 import img from '../../img/header-bg';
-import ErrorMsg from 'components/ErrorMsg/ErrorMsg';
+import ErrorMsg from '../ErrorMsg/ErrorMsg';
 
 const Header = ({ setMoviesByTerms, inputVal }) => {
 

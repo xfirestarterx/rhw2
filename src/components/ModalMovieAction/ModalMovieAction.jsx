@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addMovieThunk, editMovieThunk, closeModal } from 'store/actions';
+import { addMovieThunk, editMovieThunk, closeModal } from '../../store/actions';
 import FormLabel from '../FormLabel/FormLabel';
 import FormRow, { flowAxisType } from '../FormRow/FormRow';
 import Modal, { modalType } from '../Modal/Modal';
@@ -8,12 +8,12 @@ import TextField from '../TextField/TextField';
 import GenericInput from '../GenericInput/GenericInput';
 import Button, { buttonThemes } from '../Button/Button';
 import { Formik, Form, useFormik, Field } from 'formik';
-import validationSchema from 'utils/validationSchema';
-import ErrorMsg from 'components/ErrorMsg/ErrorMsg';
+import validationSchema from '../../utils/validationSchema';
+import ErrorMsg from '../ErrorMsg/ErrorMsg';
 
-import prepareDataToSend from 'utils/prepareDataToSend';
-import prepareDataToEdit from 'utils/prepareDataToEdit';
-import genres from 'data/genres';
+import prepareDataToSend from '../../utils/prepareDataToSend';
+import prepareDataToEdit from '../../utils/prepareDataToEdit';
+import genres from '../../data/genres';
 
 const getInputId = (name) => `modal-input-${name}`;
 

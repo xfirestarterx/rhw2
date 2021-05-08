@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styles from './Card.styl';
 import PropTypes from 'prop-types';
-import { setMovieDetailsThunk } from 'store/actions';
+import { setMovieDetailsThunk } from '../../store/actions';
 import CardImage from '../CardImage/CardImage';
 import CardFooter from '../CardFooter/CardFooter';
 import { Link } from 'react-router-dom';

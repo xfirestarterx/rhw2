@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Modal.styl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { closeModal } from 'store/actions';
+import { closeModal } from '../../store/actions';
 
 export const modalType = {
   add: 'add',

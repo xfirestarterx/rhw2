@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { setMoviesByTerms } from 'store/actions';
+import { setMoviesByTerms } from '../../store/actions';
 import PropTypes from 'prop-types';
 import styles from './TabbedFilter.styl';
 import TabItem from '../TabItem/TabItem';
