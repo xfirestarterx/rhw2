@@ -1,17 +1,15 @@
 import React from 'react';
-import styles from './CardImage.styl';
 import PropTypes from 'prop-types';
+import styles from './CardImage.styl';
 
-const CardImage = ({ img }) => {
-  return (
-    <div className={styles.CardImageWrapper}>
-      <img src={img} />
-    </div>
-  );
-};
+const CardImage = ({ img }) => (
+  <div className={styles.CardImageWrapper}>
+    <img src={img} />
+  </div>
+);
 
 CardImage.propTypes = {
-  img: PropTypes.string.isRequired
+  img: PropTypes.string.isRequired,
 };
 
 export default CardImage;

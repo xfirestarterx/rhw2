@@ -5,9 +5,9 @@ import PageTitle from '../PageTitle';
 describe('<PageTitle> spec', () => {
   it('renders', () => {
     const tree = renderer
-    .create(<PageTitle text="title" />)
-    .toJSON();
+      .create(<PageTitle text="title" />)
+      .toJSON();
 
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 });

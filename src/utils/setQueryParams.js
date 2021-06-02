@@ -4,7 +4,7 @@ export default (terms) => {
     const searchTermsKeys = ['filter', 'search', 'sortBy'];
     const url = new URL(window.location);
 
-    keys.forEach(k => {
+    keys.forEach((k) => {
       if (searchTermsKeys.includes(k)) {
         url.searchParams.set(k, terms[k]);
 
@@ -14,4 +14,4 @@ export default (terms) => {
 
     window.history.pushState({}, '', url);
   } catch (e) { }
-}
+};

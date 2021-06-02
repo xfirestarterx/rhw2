@@ -1,15 +1,13 @@
 import React from 'react';
-import styles from './CardsList.styl';
 import PropTypes from 'prop-types';
+import styles from './CardsList.styl';
 import Card from '../Card/Card';
 
-const CardsList = ({ items, defaultMessage = 'Nothing to show' }) => {
-  return items.length ? (
-    <div className={styles.CardsList}>
-      {items.map(item => <Card key={item.id} {...item} /> )}
-    </div>
-  ) : <div className={styles.Placeholder}>{defaultMessage}</div>;
-};
+const CardsList = ({ items, defaultMessage = 'Nothing to show' }) => (items.length ? (
+  <div className={styles.CardsList}>
+    {items.map((item) => <Card key={item.id} {...item} />)}
+  </div>
+) : <div className={styles.Placeholder}>{defaultMessage}</div>);
 
 CardsList.propTypes = {
   items: PropTypes.arrayOf(
@@ -18,10 +16,10 @@ CardsList.propTypes = {
       title: PropTypes.string.isRequired,
       label: PropTypes.string,
       subtitle: PropTypes.string,
-      img: PropTypes.string.isRequired
-    })
+      img: PropTypes.string.isRequired,
+    }),
   ),
-  defaultMessage: PropTypes.string
+  defaultMessage: PropTypes.string,
 };
 
 export default CardsList;

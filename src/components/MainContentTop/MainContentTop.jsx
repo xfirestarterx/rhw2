@@ -24,23 +24,23 @@ const dropDownOptions = {
   options: [
     {
       label: 'year',
-      value: sortOrder.year
+      value: sortOrder.year,
     },
     {
       label: 'title',
-      value: sortOrder.title
+      value: sortOrder.title,
     },
-  ]
+  ],
 };
 
 const MainContentTop = ({ setMoviesByTerms, dropdownVal }) => {
   const handleDropdownChange = ({ value }) => {
     setMoviesByTerms({ sortBy: value });
-  }
+  };
   const currentDropdownValObject = {
     label: dropdownVal === 'release_date' ? 'Year' : dropdownVal,
-    value: dropdownVal
-  }
+    value: dropdownVal,
+  };
   return (
     <div className={styles.FiltersSection}>
       <Row>
@@ -48,7 +48,7 @@ const MainContentTop = ({ setMoviesByTerms, dropdownVal }) => {
           <TabbedFilter items={filterItems} />
         </Column>
 
-        <Column isRightAligned={true}>
+        <Column isRightAligned>
           <LabeledDropdown labelText={dropDownOptions.labelText} optionsList={dropDownOptions.options} value={currentDropdownValObject} width={140} onChange={handleDropdownChange} />
         </Column>
       </Row>

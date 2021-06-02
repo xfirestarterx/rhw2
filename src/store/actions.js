@@ -8,24 +8,24 @@ export const openModal = (modalType, movieId) => ({
   type: actionTypes.OPEN_MODAL,
   payload: {
     currentModal: modalType,
-    movieId
-  }
+    movieId,
+  },
 });
 
 export const closeModal = () => ({
-  type: actionTypes.CLOSE_MODAL
+  type: actionTypes.CLOSE_MODAL,
 });
 
 const setMovies = (movies) => ({
   type: actionTypes.SET_MOVIES,
   payload: {
-    movies
-  }
+    movies,
+  },
 });
 
 const updateRequestState = (terms) => ({
   type: actionTypes.UPDATE_REQUEST_PARAMS,
-  payload: terms
+  payload: terms,
 });
 
 export const setMoviesByTerms = (terms) => {
@@ -33,9 +33,9 @@ export const setMoviesByTerms = (terms) => {
   const requestParamsState = store.getState().movies.params;
   const joinedTerms = {
     ...requestParamsState,
-    ...terms
-  }
-  
+    ...terms,
+  };
+
   return async (dispatch) => {
     dispatch(updateRequestState(terms));
     if (!joinedTerms.search) return;
@@ -48,66 +48,58 @@ export const setMoviesByTerms = (terms) => {
     dispatch(setMovies(normalizeMoviesData(movies)));
 
     dispatch(setIsLoading(false));
-  }
-}
+  };
+};
 
 const setMovieDetails = (movie) => ({
   type: actionTypes.GET_MOVIE_DETAILS,
-  payload: movie
+  payload: movie,
 });
 
-export const setMovieDetailsThunk = (id) => {
-  return async (dispatch) => {
-    const movie = await moviesSvc.get(id);
-    dispatch(setMovieDetails(normalizeMoviesData([movie])));
-  }
-}
+export const setMovieDetailsThunk = (id) => async (dispatch) => {
+  const movie = await moviesSvc.get(id);
+  dispatch(setMovieDetails(normalizeMoviesData([movie])));
+};
 
-const addMovie = movie => ({
+const addMovie = (movie) => ({
   type: actionTypes.ADD_MOVIE,
   payload: {
-    movie
-  }
+    movie,
+  },
 });
 
-export const addMovieThunk = movie => {
-  return async (dispatch) => {
-    await moviesSvc.add(movie);
-    dispatch(addMovie(normalizeMoviesData([movie])));
-  }
-}
+export const addMovieThunk = (movie) => async (dispatch) => {
+  await moviesSvc.add(movie);
+  dispatch(addMovie(normalizeMoviesData([movie])));
+};
 
-const editMovie = movie => ({
+const editMovie = (movie) => ({
   type: actionTypes.EDIT_MOVIE,
   payload: {
-    movie
-  }
+    movie,
+  },
 });
 
-export const editMovieThunk = movie => {
-  return async (dispatch) => {
-    await moviesSvc.update(movie);
-    dispatch(editMovie(normalizeMoviesData([movie])));
-  }
-}
+export const editMovieThunk = (movie) => async (dispatch) => {
+  await moviesSvc.update(movie);
+  dispatch(editMovie(normalizeMoviesData([movie])));
+};
 
-const deleteMovie = id => ({
+const deleteMovie = (id) => ({
   type: actionTypes.DELETE_MOVIE,
   payload: {
-    id
-  }
+    id,
+  },
 });
 
-export const deleteMovieThunk = id => {
-  return async (dispatch) => {
-    await moviesSvc.remove(id);
-    dispatch(deleteMovie(id));
-  }
-}
+export const deleteMovieThunk = (id) => async (dispatch) => {
+  await moviesSvc.remove(id);
+  dispatch(deleteMovie(id));
+};
 
 export const setIsLoading = (isLoading) => ({
   type: actionTypes.SET_IS_LOADING,
   payload: {
-    isLoading
-  }
+    isLoading,
+  },
 });

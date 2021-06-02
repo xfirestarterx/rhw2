@@ -12,17 +12,17 @@ import Button, { buttonThemes } from '../Button/Button';
 import { setMoviesByTerms } from '../../store/actions';
 import img from '../../img/header-bg';
 import ErrorMsg from '../ErrorMsg/ErrorMsg';
+import { getCurrentSearchInputVal } from '../../selectors/index';
 
 const Header = ({ setMoviesByTerms, inputVal }) => {
-
   const formik = useFormik({
     initialValues: { inputSearch: '' },
     validationSchema: Yup.object({
       inputSearch: Yup.string().required('Required'),
     }),
-    onSubmit: ({inputSearch}) => {
-      setMoviesByTerms({search: inputSearch});
-    }
+    onSubmit: ({ inputSearch }) => {
+      setMoviesByTerms({ search: inputSearch });
+    },
   });
 
   useEffect(() => {
@@ -36,24 +36,25 @@ const Header = ({ setMoviesByTerms, inputVal }) => {
 
       <HeaderPrimaryContent>
         <PageTitle text="Find your movie" />
-          <Formik>
-            <Form onSubmit={formik.handleSubmit}>
+        <Formik>
+          <Form onSubmit={formik.handleSubmit}>
             <FormRow maxWidth="840">
-              <TextField fieldProps={formik.getFieldProps('inputSearch')} id="inputSearch" placeholder='What do you want to watch?' />
+              <TextField fieldProps={formik.getFieldProps('inputSearch')} id="inputSearch" placeholder="What do you want to watch?" />
               <Button
-                type='submit'
+                type="submit"
                 text="search"
                 theme={buttonThemes.confirm}
-                propStyles={{ marginLeft: '20px' }} />
+                propStyles={{ marginLeft: '20px' }}
+              />
             </FormRow>
             <ErrorMsg msg={formik.errors.inputSearch} />
-            </Form>
-          </Formik>
+          </Form>
+        </Formik>
       </HeaderPrimaryContent>
     </div>
-  )
+  );
 };
 
-const mapStateToProps = ({ movies }) => ({ inputVal: movies.params.search });
+const mapStateToProps = (state) => ({ inputVal: getCurrentSearchInputVal(state) });
 
 export default connect(mapStateToProps, { setMoviesByTerms })(Header);

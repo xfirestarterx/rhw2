@@ -3,38 +3,38 @@ import filterTerms from '../enums/filterTerms';
 export default [
   {
     value: '',
-    label: 'Select genre'
+    label: 'Select genre',
   },
   {
     value: filterTerms.action,
-    label: 'Action'
+    label: 'Action',
   },
   {
     value: filterTerms.adventure,
-    label: 'Adventure'
+    label: 'Adventure',
   },
   {
     value: filterTerms.comedy,
-    label: 'Comedy'
+    label: 'Comedy',
   },
   {
     value: filterTerms.drama,
-    label: 'Drama'
+    label: 'Drama',
   },
   {
     value: filterTerms.fantasy,
-    label: 'Fantasy'
+    label: 'Fantasy',
   },
   {
     value: filterTerms.romance,
-    label: 'Romance'
+    label: 'Romance',
   },
   {
     value: filterTerms.thriller,
-    label: 'Thriller'
+    label: 'Thriller',
   },
   {
     value: filterTerms.war,
-    label: 'War'
-  }
+    label: 'War',
+  },
 ];

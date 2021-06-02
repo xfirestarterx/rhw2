@@ -2,7 +2,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter, matchPath } from 'react-router-dom';
 import Root from './Root';
-import configureStore from '../src/store/store';
+import configureStore from './store/store';
 import HomePage from './pages/HomePage';
 import MoviePage from './pages/MoviePage';
 import { setMovieDetailsThunk, setMoviesByTerms } from './store/actions';
@@ -16,7 +16,7 @@ const routes = [
         const params = Object.fromEntries(new URLSearchParams(query));
         return dispatch(setMoviesByTerms(params));
       } catch (e) { }
-    }
+    },
   },
   {
     path: '/movie/:id',
@@ -25,7 +25,7 @@ const routes = [
       try {
         return dispatch(setMovieDetailsThunk(id));
       } catch (e) { }
-    }
+    },
   },
 ];
 
@@ -65,8 +65,8 @@ export default function serverRenderer() {
       />
     );
 
-    const activeRoute = routes.find(route => matchPath(req.url, route)) || {};
-    const url = req.url;
+    const activeRoute = routes.find((route) => matchPath(req.url, route)) || {};
+    const { url } = req;
     const n = url.lastIndexOf('/');
     const params = url.substring(n + 1);
     const promise = activeRoute.fetchInitialData

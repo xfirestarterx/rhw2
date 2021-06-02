@@ -5,13 +5,11 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import MovieDetails from '../MovieDetails';
 
-const renderComponent = (movie) => {
-  return render(
-    <Provider store={store}>
-      <MovieDetails movie={movie} />
-    </Provider>
-  );
-};
+const renderComponent = (movie) => render(
+  <Provider store={store}>
+    <MovieDetails movie={movie} />
+  </Provider>,
+);
 
 describe('<MovieDetails /> spec', () => {
   it('renders if movie passed', () => {
@@ -20,7 +18,7 @@ describe('<MovieDetails /> spec', () => {
       img: 'https://via.placeholder.com/440x550.png?text=Pulp+Fiction',
       title: 'title',
       subtitle: 'subtitle',
-      label: 'label'
+      label: 'label',
     };
 
     expect(renderComponent(movie).asFragment).toMatchSnapshot();

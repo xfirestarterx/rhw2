@@ -13,7 +13,7 @@ const MainContent = ({ movies, isLoading }) => {
     <div className={styles.MainContent}>
       <MainContentTop />
 
-      { Boolean(count) && <FoundMoviesMessage count={count} text='movies found' /> }
+      { Boolean(count) && <FoundMoviesMessage count={count} text="movies found" /> }
 
       { isLoading && <p>Loading...</p> }
       <CardsList defaultMessage="No movie found" items={movies} />

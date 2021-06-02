@@ -11,22 +11,22 @@ const initialState = {
     searchBy: 'title',
     filter: '',
     search: '',
-  }
-}
+  },
+};
 
 let allMovies = [];
 
 const updateAllMovies = (movies) => {
   allMovies = movies;
-}
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case actions.GET_MOVIE_DETAILS: {
       return {
         ...state,
-        movieDetails: action.payload[0]
-      }
+        movieDetails: action.payload[0],
+      };
     }
 
     case actions.UPDATE_REQUEST_PARAMS: {
@@ -37,8 +37,8 @@ export default (state = initialState, action) => {
           sortBy: action.payload.sortBy ?? state.params.sortBy,
           filter: action.payload.filter ?? state.params.filter,
           search: action.payload.search ?? state.params.search,
-        }
-      }
+        },
+      };
     }
 
     case actions.SET_MOVIES: {
@@ -46,51 +46,51 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        movies: action.payload.movies
-      }
+        movies: action.payload.movies,
+      };
     }
 
     case actions.ADD_MOVIE: {
-      const movie = action.payload.movie;
+      const { movie } = action.payload;
       movie[0].id = getRandomNum(10000, 100000);
       updateAllMovies([...movie, ...allMovies]);
 
       return {
         ...state,
-        movies: allMovies
-      }
+        movies: allMovies,
+      };
     }
 
     case actions.EDIT_MOVIE: {
       const movie = action.payload.movie[0];
-      const filteredMovies = state.movies.filter(mov => mov.id !== movie.id);
+      const filteredMovies = state.movies.filter((mov) => mov.id !== movie.id);
       filteredMovies.unshift(movie);
 
       return {
         ...state,
-        movies: filteredMovies
+        movies: filteredMovies,
       };
     }
 
     case actions.DELETE_MOVIE: {
-      const movies = state.movies.filter(movie => movie.id !== action.payload.id);
+      const movies = state.movies.filter((movie) => movie.id !== action.payload.id);
       updateAllMovies(movies);
 
       return {
         ...state,
-        movies
-      }
+        movies,
+      };
     }
 
     case actions.SET_IS_LOADING: {
       return {
         ...state,
-        isLoading: action.payload.isLoading
-      }
+        isLoading: action.payload.isLoading,
+      };
     }
 
     default: {
       return state;
     }
   }
-}
+};
